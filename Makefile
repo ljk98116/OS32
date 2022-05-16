@@ -4,7 +4,12 @@ C_FLAGS = -c -Wall -m32 -ggdb -gstabs+ -nostdinc -fno-pic -fno-builtin -fno-stac
 S_FLAGS = -m32 -gdwarf-2 -Wa,-divide
 LD_FLAGS = -T tools/kernel.ld -m elf_i386 -nostdlib
 
-C_FILES = src/init src/libs
+C_FILES = src/init\
+		src/libs\
+		src/bootloader\
+		src/console\
+		src/test
+
 S_FILES = src/bootloader
 
 C_SOURCES = $(shell find $(C_FILES) -name "*.c")

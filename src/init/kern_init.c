@@ -1,27 +1,15 @@
 #include "../../libs/types.h"
+#include "../../libs/console.h"
+#include "../../libs/ktest.h"
 
 int kern_entry()
 {
-    uchar *input = (uchar *)0xB8000;
-    uchar color = (0 << 4) | (15 & 0x0F);
+    /*kernel init*/
+    console_clear();
 
-    *input++ = 'H'; *input++ = color;
-    *input++ = 'e'; *input++ = color;
-    *input++ = 'l'; *input++ = color;
-    *input++ = 'l'; *input++ = color;
-    *input++ = 'o'; *input++ = color;
-    *input++ = ','; *input++ = color;
-    *input++ = ' '; *input++ = color;
-    *input++ = 'O'; *input++ = color;
-    *input++ = 'S'; *input++ = color;
-    *input++ = ' '; *input++ = color;
-    *input++ = 'K'; *input++ = color;
-    *input++ = 'e'; *input++ = color;
-    *input++ = 'r'; *input++ = color;
-    *input++ = 'n'; *input++ = color;
-    *input++ = 'e'; *input++ = color;
-    *input++ = 'l'; *input++ = color;
-    *input++ = '!'; *input++ = color;
-
+    /*Tests*/
+    console_write_color("Hello OS\n",rc_green,rc_black);
+    KStringTest();
+    
     return 0;
 }
