@@ -26,6 +26,6 @@ glb_mboot_ptr:
 stack_end:
 
 STACK_TOP:
-    .word stack_end - stack - 1
+    .long stack_end - stack - 1
 
 
