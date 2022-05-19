@@ -1,10 +1,16 @@
 INCLUDE = libs
 
-C_FLAGS = -c -Wall -m32 -ggdb -gstabs+ -nostdinc -fno-pic -fno-builtin -fno-stack-protector -fno-pie -no-pie -I libs
+C_FLAGS = -c -Wall -m32 -ggdb -gstabs+ -nostdinc -fno-pic -fno-builtin -fno-stack-protector -fno-pie -no-pie -I $(INCLUDE)
 S_FLAGS = -m32 -gdwarf-2 -Wa,-divide
 LD_FLAGS = -T tools/kernel.ld -m elf_i386 -nostdlib
 
-C_FILES = src/init src/libs
+C_FILES = src/init\
+		src/libs\
+		src/bootloader\
+		src/console\
+		src/test\
+		src/debug
+
 S_FILES = src/bootloader
 
 C_SOURCES = $(shell find $(C_FILES) -name "*.c")
@@ -27,21 +33,21 @@ kernel:obj
 	ld $(LD_FLAGS) $(C_OBJS) $(S_OBJS) -o $@
 
 update_img:kernel
-	sudo losetup /dev/loop27 os.img #将test.img绑定到回环设备27上
-	sudo mount /dev/loop27 mnt/ #将回环设备27挂载到对应目录
+	sudo losetup /dev/loop29 os.img #将test.img绑定到回环设备29上
+	sudo mount /dev/loop29 mnt/ #将回环设备29挂载到对应目录
 	sudo cp kernel mnt/kernel
 	sudo umount mnt/	#解除挂载
-	sudo losetup -d /dev/loop27 #释放回环设备27
+	sudo losetup -d /dev/loop29 #释放回环设备29
 
 .PHONY:operate_img
 operate_img:
-	sudo losetup /dev/loop27 os.img #将test.img绑定到回环设备27上
-	sudo mount /dev/loop27 mnt/ #将回环设备27挂载到对应目录
+	sudo losetup /dev/loop29 os.img #将test.img绑定到回环设备29上
+	sudo mount /dev/loop29 mnt/ #将回环设备29挂载到对应目录
 
 .PHONY:exit_img
 exit_img:
 	sudo umount mnt/	#解除挂载
-	sudo losetup -d /dev/loop27 #释放回环设备27
+	sudo losetup -d /dev/loop29 #释放回环设备29
 
 .PHONY:all
 all:update_img

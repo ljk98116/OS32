@@ -6,7 +6,7 @@
 
 start:
     cli
-    movl $STACK_TOP,%esp
+    movl $(stack + 32768),%esp
     movl $0,%ebp
     andl $0xFFFFFFF0,%esp
     movl %ebx,[glb_mboot_ptr]
@@ -16,16 +16,10 @@ stop:
     hlt
     jz stop
 
-# stack starts from here
-stack:
-    .space 32768
-
 glb_mboot_ptr:
     .space 4
 
-stack_end:
-
-STACK_TOP:
-    .long stack_end - stack - 1
+# stack starts from here
+.comm stack,32768
 
 
