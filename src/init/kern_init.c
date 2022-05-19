@@ -10,6 +10,6 @@ int kern_entry()
     /*Tests*/
     console_write_color("Hello OS\n",rc_green,rc_black);
     KStringTest();
-    
+    KStdioTest();
     return 0;
 }

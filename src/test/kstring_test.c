@@ -9,7 +9,7 @@ void KStringTest()
     char *str4 = "";
     char *str5 = "";
 
-    console_write("*** KStringTest Start *** \n");
+    console_write("\n*** KStringTest Start *** \n");
 
     if(strlen(str1) == 5){
         console_write("strlen succeed\n");

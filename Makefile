@@ -32,21 +32,21 @@ kernel:obj
 	ld $(LD_FLAGS) $(C_OBJS) $(S_OBJS) -o $@
 
 update_img:kernel
-	sudo losetup /dev/loop27 os.img #将test.img绑定到回环设备27上
-	sudo mount /dev/loop27 mnt/ #将回环设备27挂载到对应目录
+	sudo losetup /dev/loop29 os.img #将test.img绑定到回环设备29上
+	sudo mount /dev/loop29 mnt/ #将回环设备29挂载到对应目录
 	sudo cp kernel mnt/kernel
 	sudo umount mnt/	#解除挂载
-	sudo losetup -d /dev/loop27 #释放回环设备27
+	sudo losetup -d /dev/loop29 #释放回环设备29
 
 .PHONY:operate_img
 operate_img:
-	sudo losetup /dev/loop27 os.img #将test.img绑定到回环设备27上
-	sudo mount /dev/loop27 mnt/ #将回环设备27挂载到对应目录
+	sudo losetup /dev/loop29 os.img #将test.img绑定到回环设备29上
+	sudo mount /dev/loop29 mnt/ #将回环设备29挂载到对应目录
 
 .PHONY:exit_img
 exit_img:
 	sudo umount mnt/	#解除挂载
-	sudo losetup -d /dev/loop27 #释放回环设备27
+	sudo losetup -d /dev/loop29 #释放回环设备29
 
 .PHONY:all
 all:update_img
