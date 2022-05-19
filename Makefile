@@ -1,6 +1,6 @@
 INCLUDE = libs
 
-C_FLAGS = -c -Wall -m32 -ggdb -gstabs+ -nostdinc -fno-pic -fno-builtin -fno-stack-protector -fno-pie -no-pie -I libs
+C_FLAGS = -c -Wall -m32 -ggdb -gstabs+ -nostdinc -fno-pic -fno-builtin -fno-stack-protector -fno-pie -no-pie -I $(INCLUDE)
 S_FLAGS = -m32 -gdwarf-2 -Wa,-divide
 LD_FLAGS = -T tools/kernel.ld -m elf_i386 -nostdlib
 
@@ -8,7 +8,8 @@ C_FILES = src/init\
 		src/libs\
 		src/bootloader\
 		src/console\
-		src/test
+		src/test\
+		src/debug
 
 S_FILES = src/bootloader
 

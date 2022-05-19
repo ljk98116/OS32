@@ -163,7 +163,8 @@ static int sprintk(const char *fmt,va_list ap)
                 char * val = va_arg(ap,char *);
                 strcat(buf+loc, val);
                 cnt += strlen(val);
-                loc+= strlen(val);
+                loc += strlen(val);
+                break;
             }
             default:
             {

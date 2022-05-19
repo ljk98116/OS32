@@ -6,7 +6,7 @@ make all --print-data-base --no-builtin-variables --no-builtin-rules --question
 # This is free software: you are free to change and redistribute it.
 # There is NO WARRANTY, to the extent permitted by law.
 
-# Make data base, printed on Thu May 19 14:02:38 2022
+# Make data base, printed on Thu May 19 15:16:20 2022
 
 # Variables
 
@@ -23,7 +23,7 @@ SNAP_INSTANCE_KEY =
 # environment
 GJS_DEBUG_OUTPUT = stderr
 # environment
-VSCODE_IPC_HOOK_EXTHOST = /run/user/1000/vscode-ipc-b17ff192-20ed-4e5b-b836-63dabbc59211.sock
+VSCODE_IPC_HOOK_EXTHOST = /run/user/1000/vscode-ipc-49a1ea65-03c3-42f0-ae07-d06d9a48d48b.sock
 # environment
 LC_NAME = zh_CN.UTF-8
 # environment
@@ -40,7 +40,7 @@ MAKE_COMMAND := make
 QT_ACCESSIBILITY = 1
 # automatic
 @D = $(patsubst %/,%,$(dir $@))
-# makefile (from 'Makefile', line 18)
+# makefile (from 'Makefile', line 19)
 C_OBJS = $(patsubst src/%.c,obj/%.o,$(C_SOURCES))
 # environment
 SNAP_INSTANCE_NAME = code
@@ -56,9 +56,9 @@ PWD = /home/ljk/桌面/OS32
 %D = $(patsubst %/,%,$(dir $%))
 # environment
 XDG_DATA_DIRS = /usr/share/ubuntu:/usr/local/share/:/usr/share/:/var/lib/snapd/desktop
-# makefile (from 'Makefile', line 13)
+# makefile (from 'Makefile', line 14)
 S_FILES = src/bootloader
-# makefile (from 'Makefile', line 21)
+# makefile (from 'Makefile', line 22)
 C_DIRS = $(patsubst src%,obj%,$(C_FILES))
 # automatic
 ^D = $(patsubst %/,%,$(dir $^))
@@ -113,7 +113,7 @@ SNAP_REEXEC =
 # environment
 VSCODE_VERBOSE_LOGGING = true
 # environment
-VSCODE_PID = 3570
+VSCODE_PID = 15971
 # environment
 XDG_SESSION_TYPE = x11
 # automatic
@@ -130,7 +130,7 @@ SESSION_MANAGER = local/ubuntu:@/tmp/.ICE-unix/2027,unix/ubuntu:/tmp/.ICE-unix/2
 CHROME_DESKTOP = code-url-handler.desktop
 # environment
 DBUS_SESSION_BUS_ADDRESS = unix:path=/run/user/1000/bus
-# makefile (from 'Makefile', line 19)
+# makefile (from 'Makefile', line 20)
 S_OBJS = $(patsubst src/%.S,obj/%.o,$(S_SOURCES))
 # automatic
 <D = $(patsubst %/,%,$(dir $<))
@@ -211,7 +211,7 @@ CONDA_DEFAULT_ENV = base
 # environment
 LOGNAME = ljk
 # makefile (from 'Makefile', line 3)
-C_FLAGS = -c -Wall -m32 -ggdb -gstabs+ -nostdinc -fno-pic -fno-builtin -fno-stack-protector -fno-pie -no-pie -I libs
+C_FLAGS = -c -Wall -m32 -ggdb -gstabs+ -nostdinc -fno-pic -fno-builtin -fno-stack-protector -fno-pie -no-pie -I $(INCLUDE)
 # environment
 GIO_LAUNCHED_DESKTOP_FILE = /var/lib/snapd/desktop/applications/code_code.desktop
 # environment
@@ -239,14 +239,14 @@ MANAGERPID = 1661
 # environment
 LC_MEASUREMENT = zh_CN.UTF-8
 # environment
-GIO_LAUNCHED_DESKTOP_FILE_PID = 3519
+GIO_LAUNCHED_DESKTOP_FILE_PID = 15926
 # environment
 _ = /snap/code/97/usr/share/code/code
 # environment
 LC_PAPER = zh_CN.UTF-8
 # environment
 XDG_RUNTIME_DIR = /run/user/1000
-# makefile (from 'Makefile', line 16)
+# makefile (from 'Makefile', line 17)
 S_SOURCES = $(shell find $(S_FILES) -name "*.S")
 # environment
 GPG_AGENT_INFO = /run/user/1000/gnupg/S.gpg-agent:0:1
@@ -273,7 +273,7 @@ SNAP_NAME = code
 # environment
 GSETTINGS_SCHEMA_DIR = /snap/code/97/usr/share/glib-2.0/schemas
 # makefile (from 'Makefile', line 7)
-C_FILES = src/init src/libs src/bootloader src/console src/test
+C_FILES = src/init src/libs src/bootloader src/console src/test src/debug
 # environment
 IM_CONFIG_PHASE = 1
 # environment
@@ -282,7 +282,7 @@ PAPERSIZE = a4
 .RECIPEPREFIX := 
 # automatic
 <F = $(notdir $<)
-# makefile (from 'Makefile', line 15)
+# makefile (from 'Makefile', line 16)
 C_SOURCES = $(shell find $(C_FILES) -name "*.c")
 # environment
 SNAP_VERSION = c3511e6c
@@ -291,9 +291,8 @@ SUFFIXES :=
 # environment
 VSCODE_CLI = 1
 # environment
- 
 ELECTRON_NO_ATTACH_CONSOLE = 1
-# makefile (from 'Makefile', line 22)
+# makefile (from 'Makefile', line 23)
 S_DIRS = $(patsubst src%,obj%,$(S_FILES))
 # environment
 SNAP_COMMON = /var/snap/code/common
@@ -307,6 +306,7 @@ SNAP_USER_DATA = /home/ljk/snap/code/97
 XDG_MENU_PREFIX = gnome-
 # environment
 CONDA_EXE = /home/ljk/anaconda3/bin/conda
+ 
 # makefile (from 'Makefile', line 5)
 LD_FLAGS = -T tools/kernel.ld -m elf_i386 -nostdlib
 # environment
@@ -326,9 +326,9 @@ SNAP_LIBRARY_PATH = /var/lib/snapd/lib/gl:/var/lib/snapd/lib/gl32:/var/lib/snapd
 
 # Directories
 
-# . (device 2051, inode 3540065): 12 files, no impossibilities.
+# . (device 2051, inode 3540065): 11 files, no impossibilities.
 
-# 12 files, no impossibilities in 1 directories.
+# 11 files, no impossibilities in 1 directories.
 
 # Implicit Rules
 
@@ -343,7 +343,7 @@ update_img: kernel
 #  Needs to be updated (-q is set).
 # variable set hash-table stats:
 # Load=0/32=0%, Rehash=0, Collisions=0/7=0%
-#  recipe to execute (from 'Makefile', line 35):
+#  recipe to execute (from 'Makefile', line 36):
 	sudo losetup /dev/loop29 os.img #将test.img绑定到回环设备29上
 	sudo mount /dev/loop29 mnt/ #将回环设备29挂载到对应目录
 	sudo cp kernel mnt/kernel
@@ -355,14 +355,14 @@ operate_img:
 #  Implicit rule search has not been done.
 #  File does not exist.
 #  File has not been updated.
-#  recipe to execute (from 'Makefile', line 43):
+#  recipe to execute (from 'Makefile', line 44):
 	sudo losetup /dev/loop29 os.img #将test.img绑定到回环设备29上
 	sudo mount /dev/loop29 mnt/ #将回环设备29挂载到对应目录
 
 # Not a target:
 Makefile:
 #  Implicit rule search has been done.
-#  Last modified 2022-05-19 13:58:45.897176116
+#  Last modified 2022-05-19 15:16:15.25832945
 #  File has been updated.
 #  Successfully updated.
 
@@ -390,7 +390,7 @@ dirs:
 # | := 
 # variable set hash-table stats:
 # Load=8/32=25%, Rehash=0, Collisions=8/15=53%
-#  recipe to execute (from 'Makefile', line 25):
+#  recipe to execute (from 'Makefile', line 26):
 	mkdir -p $(C_DIRS) $(S_DIRS)
 
 clean:
@@ -398,7 +398,7 @@ clean:
 #  Implicit rule search has not been done.
 #  File does not exist.
 #  File has not been updated.
-#  recipe to execute (from 'Makefile', line 56):
+#  recipe to execute (from 'Makefile', line 57):
 	rm -rf bin obj kernel
 
 exit_img:
@@ -406,29 +406,29 @@ exit_img:
 #  Implicit rule search has not been done.
 #  File does not exist.
 #  File has not been updated.
-#  recipe to execute (from 'Makefile', line 48):
+#  recipe to execute (from 'Makefile', line 49):
 	sudo umount mnt/	#解除挂载
 	sudo losetup -d /dev/loop29 #释放回环设备29
 
 obj: dirs
 #  Implicit rule search has not been done.
-#  Last modified 2022-05-19 13:58:49.101124156
+#  File does not exist.
 #  File has been updated.
 #  Needs to be updated (-q is set).
 # variable set hash-table stats:
 # Load=0/32=0%, Rehash=0, Collisions=0/7=0%
-#  recipe to execute (from 'Makefile', line 28):
+#  recipe to execute (from 'Makefile', line 29):
 	$(foreach n,$(C_SOURCES),$(shell gcc $(C_FLAGS) $(n) -o obj/$(patsubst src/%.c,%.o,$(n))))
 	$(foreach n,$(S_SOURCES),$(shell gcc $(C_FLAGS) $(n) -o obj/$(patsubst src/%.S,%.o,$(n))))
 
 kernel: obj
 #  Implicit rule search has not been done.
-#  Last modified 2022-05-19 13:58:49.209122407
+#  File does not exist.
 #  File has been updated.
 #  Needs to be updated (-q is set).
 # variable set hash-table stats:
 # Load=0/32=0%, Rehash=0, Collisions=0/7=0%
-#  recipe to execute (from 'Makefile', line 32):
+#  recipe to execute (from 'Makefile', line 33):
 	ld $(LD_FLAGS) $(C_OBJS) $(S_OBJS) -o $@
 
 # Not a target:
@@ -451,7 +451,7 @@ qemu:
 #  Implicit rule search has not been done.
 #  Modification time never checked.
 #  File has not been updated.
-#  recipe to execute (from 'Makefile', line 60):
+#  recipe to execute (from 'Makefile', line 61):
 	qemu-system-i386 -hda os.img
 
 QEMU:
@@ -479,12 +479,12 @@ QEMU:
 
 # No general ('VPATH' variable) search path.
 
-# strcache buffers: 1 (0) / strings = 25 / storage = 179 B / avg = 7 B
-# current buf: size = 8162 B / used = 179 B / count = 25 / avg = 7 B
+# strcache buffers: 1 (0) / strings = 26 / storage = 189 B / avg = 7 B
+# current buf: size = 8162 B / used = 189 B / count = 26 / avg = 7 B
 
-# strcache performance: lookups = 59 / hit rate = 57%
+# strcache performance: lookups = 58 / hit rate = 55%
 # hash-table stats:
-# Load=25/8192=0%, Rehash=0, Collisions=0/59=0%
-# Finished Make data base on Thu May 19 14:02:38 2022
+# Load=26/8192=0%, Rehash=0, Collisions=0/58=0%
+# Finished Make data base on Thu May 19 15:16:20 2022
 
  

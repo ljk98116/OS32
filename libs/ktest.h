@@ -3,5 +3,6 @@
 
 void KStringTest();
 void KStdioTest();
+void KDebugTest();
 
 #endif
