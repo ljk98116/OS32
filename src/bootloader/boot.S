@@ -14,7 +14,7 @@ start:
 
 stop:
     hlt
-    jz stop
+    jmp stop
 
 glb_mboot_ptr:
     .space 4

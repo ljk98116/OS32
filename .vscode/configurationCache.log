@@ -1,0 +1,1 @@
+{"buildTargets":["QEMU","all","clean","dirs","exit_img","kernel","obj","operate_img","qemu","qemu-gdb","update_img"],"launchTargets":[],"customConfigurationProvider":{"workspaceBrowse":{"browsePath":[],"compilerArgs":[]},"fileIndex":[]}}

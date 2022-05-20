@@ -54,6 +54,7 @@ struct segdesc {
   (uint)(lim) >> 16, 0, 0, 1, 0, (uint)(base) >> 24 }
 #endif
 
+#define DPL_KERNEL  0x0     // Kernel DPL
 #define DPL_USER    0x3     // User DPL
 
 // Application segment type bits
@@ -65,6 +66,7 @@ struct segdesc {
 #define STS_T32A    0x9     // Available 32-bit TSS
 #define STS_IG32    0xE     // 32-bit Interrupt Gate
 #define STS_TG32    0xF     // 32-bit Trap Gate
+
 
 // A virtual address 'la' has a three-part structure as follows:
 //
@@ -152,7 +154,7 @@ struct gatedesc {
   uint off_15_0 : 16;   // low 16 bits of offset in segment
   uint cs : 16;         // code segment selector
   uint args : 5;        // # args, 0 for interrupt/trap gates
-  uint rsv1 : 3;        // reserved(should be zero I guess)
+  uint rsv1 : 3;        // reserved
   uint type : 4;        // type(STS_{IG32,TG32})
   uint s : 1;           // must be 0 (system)
   uint dpl : 2;         // descriptor(meaning new) privilege level

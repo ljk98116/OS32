@@ -9,9 +9,12 @@ C_FILES = src/init\
 		src/bootloader\
 		src/console\
 		src/test\
-		src/debug
+		src/debug\
+		src/segmm\
+		src/driver
 
-S_FILES = src/bootloader
+S_FILES = src/bootloader\
+		src/segmm\
 
 C_SOURCES = $(shell find $(C_FILES) -name "*.c")
 S_SOURCES = $(shell find $(S_FILES) -name "*.S")
@@ -56,6 +59,10 @@ all:update_img
 clean:
 	rm -rf bin obj kernel
 
-.PHONY:QEMU
+.PHONY:qemu
 qemu:
-	qemu-system-i386 -hda os.img
+	qemu-system-i386 -hda os.img -no-reboot
+
+.PHONY:qemu-gdb
+qemu-gdb:
+	qemu-system-i386 -hda os.img -no-reboot -S -gdb tcp::1234
