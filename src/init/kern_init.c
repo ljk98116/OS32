@@ -4,6 +4,7 @@
 #include "../../libs/debug.h"
 #include "../../libs/gdt.h"
 #include "../../libs/trap.h"
+#include "../../libs/drivers.h"
 
 static void Test();
 
@@ -16,7 +17,6 @@ int kern_entry()
     init_idt();
     /*Tests*/
     Test();
-    asm volatile("int $0x1");
     return 0;
 }
 
@@ -26,4 +26,6 @@ static void Test()
     //KStringTest();
     KStdioTest();
     //KDebugTest();
+    //init_timer(100);
+    //asm volatile("sti");
 }

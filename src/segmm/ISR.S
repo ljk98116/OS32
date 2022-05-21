@@ -1,201 +1,313 @@
-# valid isr
-.globl isr0,isr1,isr2,isr3,isr4,isr5,isr6,isr7,isr8,isr9,isr10
-.globl isr11,isr12,isr13,isr14,isr15,isr16,isr17,isr18,isr19
-# reserved isr
-.globl isr20,isr21,isr22,isr23,isr24,isr25,isr26,isr26,isr27,isr28,isr29,isr30,isr31
-# special isr
-.globl isr255
+# valid interrupt
+.globl interrupt0,interrupt1,interrupt2,interrupt3,interrupt4,interrupt5,interrupt6,interrupt7,interrupt8,interrupt9,interrupt10
+.globl interrupt11,interrupt12,interrupt13,interrupt14,interrupt15,interrupt16,interrupt17,interrupt18,interrupt19
+# reserved interrupt
+.globl interrupt20,interrupt21,interrupt22,interrupt23,interrupt24,interrupt25,interrupt26,interrupt26,interrupt27,interrupt28,interrupt29,interrupt30,interrupt31
+# special interrupt
+.globl interrupt255
 
-isr0:
+interrupt0:
     cli
     pushl $0
     pushl $0
-    jmp isr_common_stub
+    jmp interrupt_common_stub
 
-isr1:
+interrupt1:
     cli
     pushl $0
     pushl $1
-    jmp isr_common_stub
+    jmp interrupt_common_stub
 
-isr2:
+interrupt2:
     cli
     pushl $0
     pushl $2
-    jmp isr_common_stub
+    jmp interrupt_common_stub
 
-isr3:
+interrupt3:
     cli
     pushl $0
     pushl $3
-    jmp isr_common_stub
+    jmp interrupt_common_stub
 
-isr4:
+interrupt4:
     cli
     pushl $0
     pushl $4
-    jmp isr_common_stub
+    jmp interrupt_common_stub
 
-isr5:
+interrupt5:
     cli
     pushl $0
     pushl $5
-    jmp isr_common_stub
+    jmp interrupt_common_stub
 
-isr6:
+interrupt6:
     cli
     pushl $0
     pushl $6
-    jmp isr_common_stub
+    jmp interrupt_common_stub
 
-isr7:
+interrupt7:
     cli
     pushl $0
     pushl $7
-    jmp isr_common_stub
+    jmp interrupt_common_stub
 
-isr8:
+interrupt8:
     cli
     pushl $8
-    jmp isr_common_stub
+    jmp interrupt_common_stub
 
-isr9:
+interrupt9:
     cli
     pushl $0
     pushl $9
-    jmp isr_common_stub
+    jmp interrupt_common_stub
 
-isr10:
+interrupt10:
     cli
     pushl $10
-    jmp isr_common_stub
+    jmp interrupt_common_stub
 
-isr11:
+interrupt11:
     cli
     pushl $11
-    jmp isr_common_stub
+    jmp interrupt_common_stub
 
-isr12:
+interrupt12:
     cli
     pushl $12
-    jmp isr_common_stub
+    jmp interrupt_common_stub
 
-isr13:
+interrupt13:
     cli
     pushl $13
-    jmp isr_common_stub
+    jmp interrupt_common_stub
 
-isr14:
+interrupt14:
     cli
     pushl $14
-    jmp isr_common_stub
+    jmp interrupt_common_stub
 
-isr15:
+interrupt15:
     cli
     pushl $0
     pushl $15
-    jmp isr_common_stub
+    jmp interrupt_common_stub
 
-isr16:
+interrupt16:
     cli
     pushl $0
     pushl $16
-    jmp isr_common_stub
+    jmp interrupt_common_stub
 
-isr17:
+interrupt17:
     cli
     pushl $17
-    jmp isr_common_stub
+    jmp interrupt_common_stub
 
-isr18:
+interrupt18:
     cli
     pushl $0
     pushl $18
-    jmp isr_common_stub
+    jmp interrupt_common_stub
 
-isr19:
+interrupt19:
     cli
     pushl $0
     pushl $19
-    jmp isr_common_stub
+    jmp interrupt_common_stub
 
-isr20:
+interrupt20:
     cli
     pushl $0
     pushl $20
-    jmp isr_common_stub
+    jmp interrupt_common_stub
 
-isr21:
+interrupt21:
     cli
     pushl $0
     pushl $21
-    jmp isr_common_stub
+    jmp interrupt_common_stub
 
-isr22:
+interrupt22:
     cli
     pushl $0
     pushl $22
-    jmp isr_common_stub
+    jmp interrupt_common_stub
 
-isr23:
+interrupt23:
     cli
     pushl $0
     pushl $23
-    jmp isr_common_stub
+    jmp interrupt_common_stub
 
-isr24:
+interrupt24:
     cli
     pushl $0
     pushl $24
-    jmp isr_common_stub
+    jmp interrupt_common_stub
 
-isr25:
+interrupt25:
     cli
     pushl $0
     pushl $25
-    jmp isr_common_stub
+    jmp interrupt_common_stub
 
-isr26:
+interrupt26:
     cli
     pushl $0
     pushl $26
-    jmp isr_common_stub
+    jmp interrupt_common_stub
 
-isr27:
+interrupt27:
     cli
     pushl $0
     pushl $27
-    jmp isr_common_stub
+    jmp interrupt_common_stub
 
-isr28:
+interrupt28:
     cli
     pushl $0
     pushl $28
-    jmp isr_common_stub
+    jmp interrupt_common_stub
 
-isr29:
+interrupt29:
     cli
     pushl $0
     pushl $29
-    jmp isr_common_stub
+    jmp interrupt_common_stub
 
-isr30:
+interrupt30:
     cli
     pushl $0
     pushl $30
-    jmp isr_common_stub
+    jmp interrupt_common_stub
 
-isr31:
+interrupt31:
     cli
     pushl $0
     pushl $31
-    jmp isr_common_stub
+    jmp interrupt_common_stub
 
-isr255:
+.globl interrupt32
+interrupt32:
+    cli
+    pushl $0
+    pushl $32
+    jmp interrupt_common_stub
+
+.globl interrupt33
+interrupt33:
+    cli
+    pushl $0
+    pushl $33
+    jmp interrupt_common_stub
+
+.globl interrupt34
+interrupt34:
+    cli
+    pushl $0
+    pushl $34
+    jmp interrupt_common_stub
+
+.globl interrupt35
+interrupt35:
+    cli
+    pushl $0
+    pushl $35
+    jmp interrupt_common_stub
+
+.globl interrupt36
+interrupt36:
+    cli
+    pushl $0
+    pushl $36
+    jmp interrupt_common_stub
+
+.globl interrupt37
+interrupt37:
+    cli
+    pushl $0
+    pushl $37
+    jmp interrupt_common_stub
+
+.globl interrupt38
+interrupt38:
+    cli
+    pushl $0
+    pushl $38
+    jmp interrupt_common_stub
+
+.globl interrupt39
+interrupt39:
+    cli
+    pushl $0
+    pushl $39
+    jmp interrupt_common_stub
+
+.globl interrupt40
+interrupt40:
+    cli
+    pushl $0
+    pushl $40
+    jmp interrupt_common_stub
+
+.globl interrupt41
+interrupt41:
+    cli
+    pushl $0
+    pushl $41
+    jmp interrupt_common_stub
+
+.globl interrupt42
+interrupt42:
+    cli
+    pushl $0
+    pushl $42
+    jmp interrupt_common_stub
+
+.globl interrupt43
+interrupt43:
+    cli
+    pushl $0
+    pushl $43
+    jmp interrupt_common_stub
+
+.globl interrupt44
+interrupt44:
+    cli
+    pushl $0
+    pushl $44
+    jmp interrupt_common_stub
+
+.globl interrupt45
+interrupt45:
+    cli
+    pushl $0
+    pushl $45
+    jmp interrupt_common_stub
+
+.globl interrupt46
+interrupt46:
+    cli
+    pushl $0
+    pushl $46
+    jmp interrupt_common_stub
+
+.globl interrupt47
+interrupt47:
+    cli
+    pushl $0
+    pushl $47
+    jmp interrupt_common_stub
+
+interrupt255:
     cli
     pushl $0
     pushl $255
-    jmp isr_common_stub
+    jmp interrupt_common_stub
 
 .globl idt_flush
 idt_flush:
@@ -203,7 +315,7 @@ idt_flush:
     lidt (%eax)
     ret
 
-isr_common_stub:
+interrupt_common_stub:
     pushal
     pushl %ds
     
@@ -213,7 +325,7 @@ isr_common_stub:
     movw %ax,%es
 
     pushl %esp
-    call isr_handler
+    call interrupt_handler
     addl $4,%esp
 
     popl %ds

@@ -20,10 +20,10 @@ void print_cur_status()
             : "=m"(reg1), "=m"(reg2), "=m"(reg3), "=m"(reg4));
 
     printk("%d: @ring %d\n", round, reg1 & 0x3);
-    printk("%d:  cs = %x\n", round, reg1);
-    printk("%d:  ds = %x\n", round, reg2);
-    printk("%d:  es = %x\n", round, reg3);
-    printk("%d:  ss = %x\n", round, reg4);
+    printk("%d:  cs = 0x%x\n", round, reg1);
+    printk("%d:  ds = 0x%x\n", round, reg2);
+    printk("%d:  es = 0x%x\n", round, reg3);
+    printk("%d:  ss = 0x%x\n", round, reg4);
     ++round;
 }
 
@@ -39,11 +39,10 @@ void panic(const char *msg)
 void print_stack_trace()
 {
     uint *ebp, *eip;
-
     asm volatile ("mov %%ebp, %0" : "=r" (ebp));
     while (ebp) {
         eip = ebp + 1;
-        printk("[0x%x] %s\n", *eip, elf_lookup_symbol(*eip, &kernel_elf));
+        printk("eip:[0x%x],ebp:[0x%x] %s\n", *eip, *ebp, elf_lookup_symbol(*eip, &kernel_elf));
         ebp = (uint*)*ebp;
     }
 }

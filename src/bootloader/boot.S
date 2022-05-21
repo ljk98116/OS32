@@ -10,6 +10,7 @@ start:
     movl $0,%ebp
     andl $0xFFFFFFF0,%esp
     movl %ebx,[glb_mboot_ptr]
+    # kern_entry has no params
     call kern_entry
 
 stop:

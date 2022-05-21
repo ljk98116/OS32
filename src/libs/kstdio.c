@@ -8,13 +8,13 @@ static char *itoa(int x,char *buf)
 {
     int cnt = 0;
     int v = x;
-    while(v)
+    do
     {
         char c = (char)(v % 10 + 0x30);
         *(buf + cnt) = c;
         cnt ++;
         v = v / 10;
-    }
+    }while(v);
 
     buf[cnt] = '\0';
 
@@ -32,13 +32,13 @@ static char *utoa(uint x,char *buf)
 {
     int cnt = 0;
     uint v = x;
-    while(v)
+    do
     {
         char c = (char)(v % 10 + 0x30);
         *(buf + cnt) = c;
         cnt ++;
         v = v / 10;
-    }
+    }while(v);
 
     buf[cnt] = '\0';
 
@@ -56,7 +56,7 @@ static char *ToHex(uint x, char *buf)
 {
     int cnt = 0;
     uint v = x;
-    while(v)
+    do
     {
         char c = '0';
         if(v % 16 < 10)
@@ -70,7 +70,7 @@ static char *ToHex(uint x, char *buf)
         *(buf + cnt) = c;
         cnt ++;
         v = v / 16;
-    }
+    }while(v);
 
     buf[cnt] = '\0';
 
