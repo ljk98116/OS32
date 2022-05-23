@@ -1,5 +1,5 @@
 make --dry-run --keep-going --print-directory
 make: Entering directory '/home/ljk/桌面/OS32'
-mkdir -p obj/init obj/libs obj/bootloader obj/console obj/test obj/debug obj/segmm obj/driver obj/bootloader obj/segmm
+mkdir -p obj/init obj/libs obj/bootloader obj/console obj/test obj/debug obj/segmm obj/driver obj/pmm obj/bootloader obj/segmm
 make: Leaving directory '/home/ljk/桌面/OS32'
  

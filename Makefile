@@ -11,7 +11,8 @@ C_FILES = src/init\
 		src/test\
 		src/debug\
 		src/segmm\
-		src/driver
+		src/driver\
+		src/pmm
 
 S_FILES = src/bootloader\
 		src/segmm\
@@ -36,7 +37,7 @@ kernel:obj
 	ld $(LD_FLAGS) $(C_OBJS) $(S_OBJS) -o $@
 
 update_img:kernel
-	sudo losetup /dev/loop29 os.img #将test.img绑定到回环设备29上
+	sudo losetup /dev/loop29 OS.img #将test.img绑定到回环设备29上
 	sudo mount /dev/loop29 mnt/ #将回环设备29挂载到对应目录
 	sudo cp kernel mnt/kernel
 	sudo umount mnt/	#解除挂载
@@ -44,7 +45,7 @@ update_img:kernel
 
 .PHONY:operate_img
 operate_img:
-	sudo losetup /dev/loop29 os.img #将test.img绑定到回环设备29上
+	sudo losetup /dev/loop29 OS.img #将test.img绑定到回环设备29上
 	sudo mount /dev/loop29 mnt/ #将回环设备29挂载到对应目录
 
 .PHONY:exit_img
@@ -61,8 +62,8 @@ clean:
 
 .PHONY:qemu
 qemu:
-	qemu-system-i386 -hda os.img -no-reboot
+	qemu-system-i386 -hda OS.img -no-reboot
 
 .PHONY:qemu-gdb
 qemu-gdb:
-	qemu-system-i386 -hda os.img -no-reboot -S -gdb tcp::1234
+	qemu-system-i386 -hda OS.img -no-reboot -S -gdb tcp::1234
