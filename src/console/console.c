@@ -2,13 +2,13 @@
 #include "../../libs/x86.h"
 
 //Text Video Buffer starts here,size = (80,25)
-static ushort *text_video_mem = (ushort *)0xB8000;
+static ushort *text_video_mem = (ushort *)(0xB8000 + 0xC0000000);
 
 //cursors,starts from (0,0)
 static uchar cursor_X = 0;
 static uchar cursor_Y = 0;
 
-static void move_cursor()
+void move_cursor()
 {
     //current loc to config
     ushort cursor_loc = cursor_Y * 80 + cursor_X;
@@ -20,7 +20,7 @@ static void move_cursor()
     outb(0x3D5,cursor_loc & 0xFF);
 }
 
-static void scroll()
+void scroll()
 {
     uchar attribute_byte = (0 << 4) | (15 & 0x0F);
     ushort blank = 0x20 | (attribute_byte << 8);  // space 是 0x20

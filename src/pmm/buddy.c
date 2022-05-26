@@ -7,7 +7,7 @@ buddy_item_t buddy_table[17];
 
 phy_page_t phy_pages[MAX_PG_NUM];
 
-int phy_page_num;
+int phy_page_num=0;
 
 static int log2(int x)
 {
@@ -43,15 +43,14 @@ static void init_pages()
 
         // 如果是可用内存 ( 按照协议，1 表示可用内存，其它数字指保留区域 )
         if (map_entry->type == 1 && map_entry->base_addr_low == 0x100000) {
-            
             uint page_addr = map_entry->base_addr_low + (uint)(kern_end - kern_start);
             uint length = map_entry->base_addr_low + map_entry->length_low;
-
             while (page_addr < length && page_addr <= MAXSIZE) {
                 phy_pages[phy_page_num].ref_num = 0;
                 phy_pages[phy_page_num].flags = 0;
                 phy_pages[phy_page_num].start_addr = page_addr;
                 phy_pages[phy_page_num].next = phy_pages[phy_page_num].prev = NULL;
+                phy_pages[phy_page_num].active = 0;
                 phy_page_num++;
                 page_addr += PGSIZE;
             }
@@ -87,11 +86,13 @@ void init_buddy()
             if(i == 0)
             {
                 buddy_table[idx].page_blk_list = &phy_pages[start_pg_id];
+                buddy_table[idx].page_blk_list->prev = buddy_table[idx].page_blk_list->next = NULL;
             }
             else
             {
                 phy_pages[start_pg_id + i].prev = &phy_pages[start_pg_id + i - 1];
                 phy_pages[start_pg_id + i - 1].next = &phy_pages[start_pg_id + i];
+                phy_pages[start_pg_id + i].next = NULL;
             }
         }
         // init the buddy item(init blk_num is 0)
@@ -148,17 +149,17 @@ static phy_page_t *SplitBlock(int idx)
         p = p->next;
         cnt++;
     }
-    if(buddy_table[idx].blk_num >= 1)
+    if(buddy_table[idx].blk_num > 1)
     {
         buddy_table[idx].page_blk_list = p;
+        p->prev->next = NULL;
+        p->prev = NULL;
     }
     else
     {
         buddy_table[idx].page_blk_list = NULL;
     }
     buddy_table[idx].blk_num--;
-    p->prev->next = NULL;
-    p->prev = NULL;
     //cut current blk into 2 smaller blk
     //(1)find next_id list's tail,p is the last page
     p = buddy_table[nextid].page_blk_list;
@@ -221,8 +222,11 @@ phy_page_t *alloc_buddy(uint memsize)
             }
             buddy_table[i].page_blk_list = p;
             buddy_table[i].blk_num--;
-            p->prev->next = NULL;
-            p->prev = NULL;
+            if(p != NULL)
+            {
+                p->prev->next = NULL;
+                p->prev = NULL;
+            }
             break;
         }
         else if(buddy_table[i].page_blk_list != NULL && idx < i)
@@ -349,6 +353,7 @@ static phy_page_t *BlendBlk(phy_page_t *buddy_blk, phy_page_t *blk,int idx)
     other->prev = p;
     return res;
 }
+
 //free pg_blk
 void free_buddy(phy_page_t *pg_blk)
 {

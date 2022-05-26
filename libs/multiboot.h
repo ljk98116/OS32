@@ -75,6 +75,7 @@ typedef struct mmap_entry_t {
 //find from global variable
 extern struct MultiBootHeader glb_mboot_hdr;
 extern MultiBoot_t *glb_mboot_ptr;
+extern MultiBoot_t *mboot_ptr_tmp;
 
 //configs
 #define MBOOT_MAGIC 0x1BADB002

@@ -1,26 +1,26 @@
-.section .text
+.section .init.text
 
 .code32
 .globl start
-.globl glb_mboot_ptr
 
 start:
-    cli
+    #cli
     movl $(stack + 32768),%esp
     movl $0,%ebp
     andl $0xFFFFFFF0,%esp
-    movl %ebx,[glb_mboot_ptr]
-    # kern_entry has no params
+    movl %ebx,[mboot_ptr_tmp]
     call kern_entry
 
 stop:
     hlt
-    jmp stop
+    jz stop
 
-glb_mboot_ptr:
-    .space 4
-
+.section .init.data
 # stack starts from here
 .comm stack,32768
+
+.globl mboot_ptr_tmp
+mboot_ptr_tmp:
+    .long 0
 
 

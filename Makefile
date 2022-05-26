@@ -62,8 +62,8 @@ clean:
 
 .PHONY:qemu
 qemu:
-	qemu-system-i386 -hda OS.img -no-reboot
+	qemu-system-i386 -hda OS.img
 
 .PHONY:qemu-gdb
 qemu-gdb:
-	qemu-system-i386 -hda OS.img -no-reboot -S -gdb tcp::1234
+	qemu-system-i386 -hda OS.img -S -gdb tcp::1234
