@@ -7,7 +7,9 @@
 #include "../../libs/drivers.h"
 #include "../../libs/pmm.h"
 #include "../../libs/vmm.h"
+#include "../../libs/mmu.h"
 
+void kern_init();
 static void Test();
 
 #define STACK_SIZE 32768
@@ -25,20 +27,20 @@ __attribute__((section(".init.data"))) int i;
 
 __attribute__((section(".init.text")))void kern_entry()
 {
-    pgd_tmp[0] = (uint)pte_0 | PAGE_PRESENT | PAGE_WRITE | PAGE_USER;//0~4M
-    pgd_tmp[1] = (uint)pte_1 | PAGE_PRESENT | PAGE_WRITE | PAGE_USER;//4M ~8M
+    pgd_tmp[0] = (uint)pte_0 | PTE_P | PTE_W | PTE_U;//0~4M
+    pgd_tmp[1] = (uint)pte_1 | PTE_P | PTE_W | PTE_U;//4M ~8M
 
-    pgd_tmp[0x300] = (uint)pte_0 | PAGE_PRESENT | PAGE_WRITE | PAGE_USER;//0xC0000000~0xC0400000
-    pgd_tmp[0x301] = (uint)pte_1 | PAGE_PRESENT | PAGE_WRITE | PAGE_USER;//0xC0400000~0xC0800000
+    pgd_tmp[0x300] = (uint)pte_0 | PTE_P | PTE_W | PTE_U;//0xC0000000~0xC0400000
+    pgd_tmp[0x301] = (uint)pte_1 | PTE_P | PTE_W | PTE_U;//0xC0400000~0xC0800000
 
     for(i=0;i<1024;i++)
     {
-        *(pte_0 + i) = (i << 12) | PAGE_PRESENT | PAGE_WRITE | PAGE_USER;
+        *(pte_0 + i) = (i << 12) | PTE_P | PTE_W | PTE_U;
     }
 
     for(i=0;i<1024;i++)
     {
-        *(pte_1 + i) = ((i+1024) << 12) | PAGE_PRESENT | PAGE_WRITE | PAGE_USER;
+        *(pte_1 + i) = ((i+1024) << 12) | PTE_P | PTE_W | PTE_U;
     }
 
     asm volatile ("movl %0, %%cr3" : : "r" (pgd_tmp));
@@ -66,11 +68,9 @@ void kern_init()
     init_gdt();
     init_idt();
     init_debug();
-    //printk("0x%x\n",*(uint*)0xC0700000);
-    //init_vmm(); //setup kernel pgtable
     show_pmm_map();
     init_pmm();
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                   
+    init_vmm(); //setup kernel pgtable                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                   
     /*Tests*/
     Test();
     while(1);
@@ -82,7 +82,8 @@ static void Test()
     //KStringTest();
     //KStdioTest();
     BuddyTest();
-    KDebugTest();
+    VMMTest1();
     //init_timer(100);
     //asm volatile("sti");
+    KDebugTest();
 }

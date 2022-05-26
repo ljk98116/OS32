@@ -274,7 +274,7 @@ static phy_page_t *FindBuddy(phy_page_t *pg_blk,int idx)
         if(cnt % pg_cnt == 0)
         {
             //p is pg_blk's buddy blk
-            if(p->start_addr ^ pg_blk->start_addr == mask)
+            if((p->start_addr) ^ (pg_blk->start_addr) == mask)
             {
                 phy_page_t *pp = p;
                 int pcnt = 0;
@@ -330,7 +330,6 @@ static phy_page_t *BlendBlk(phy_page_t *buddy_blk, phy_page_t *blk,int idx)
 
     int mask = 1 << (idx + 12);
     int buddy_is_high = buddy_blk->start_addr & mask;
-    int blk_is_high = blk->start_addr & mask;
     phy_page_t *res = NULL;
     phy_page_t *other = NULL;
     if(buddy_is_high == 0)

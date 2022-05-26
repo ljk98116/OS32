@@ -5,7 +5,6 @@
 #include "mmu.h"
 
 #define MAXSIZE 0x20000000
-#define PGSIZE 0x1000
 #define MAX_PG_NUM (MAXSIZE / PGSIZE)
 
 extern int phy_page_num;
@@ -57,8 +56,5 @@ typedef struct kmem_cache_node
     int size;
     struct kmem_cache_node *prev,*next;
 }kmem_cache_node_t;
-
-#define PG_USED 1
-#define PG_FREE 0
 
 #endif

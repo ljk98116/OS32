@@ -76,11 +76,6 @@ struct segdesc {
 // +----------------+----------------+---------------------+
 //  \--- PDX(va) --/ \--- PTX(va) --/
 
-// page directory index
-#define PDX(va)         (((uint)(va) >> PDXSHIFT) & 0x3FF)
-
-// page table index
-#define PTX(va)         (((uint)(va) >> PTXSHIFT) & 0x3FF)
 
 // construct virtual address from indexes and offset
 #define PGADDR(d, t, o) ((uint)((d) << PDXSHIFT | (t) << PTXSHIFT | (o)))
@@ -102,11 +97,18 @@ struct segdesc {
 #define PTE_U           0x004   // User
 #define PTE_PS          0x080   // Page Size
 
+#define PGD_IDX(x) ((x) >> 22) & 0x3FF
+#define PTE_IDX(x) ((x) >> 12) & 0x3FF
+#define PG_OFFSET(x) (x) & 0xFFF
+#define PAGE_OFFSET 0xC0000000
+#define PAGE_MASK 0xFFFFF000
+
+//128 pagetables,for each pgtable maps 4M mem,total 512MB
+#define PTE_COUNT 128
+
 // Address in page table or page directory entry
 #define PTE_ADDR(pte)   ((uint)(pte) & ~0xFFF)
 #define PTE_FLAGS(pte)  ((uint)(pte) &  0xFFF)
-
-typedef uint pte_t;
 
 // Task state segment format
 struct taskstate {

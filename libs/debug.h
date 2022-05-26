@@ -2,6 +2,7 @@
 #define DEBUG_H
 
 #include "elf.h"
+#include "kstdio.h"
 
 #define assert(x,info)\
     do{\

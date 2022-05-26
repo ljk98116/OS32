@@ -5,5 +5,5 @@ void KStringTest();
 void KStdioTest();
 void KDebugTest();
 void BuddyTest();
-
+void VMMTest1();
 #endif

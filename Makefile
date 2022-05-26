@@ -12,7 +12,8 @@ C_FILES = src/init\
 		src/debug\
 		src/segmm\
 		src/driver\
-		src/pmm
+		src/pmm\
+		src/vmm
 
 S_FILES = src/bootloader\
 		src/segmm\

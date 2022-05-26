@@ -1,4 +1,5 @@
 #include "../../libs/pmm.h"
+#include "../../libs/kstdio.h"
 
 void show_pmm_map()
 {
