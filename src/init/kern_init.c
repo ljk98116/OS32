@@ -8,6 +8,7 @@
 #include "../../libs/pmm.h"
 #include "../../libs/vmm.h"
 #include "../../libs/mmu.h"
+#include "../../libs/slab.h"
 
 void kern_init();
 static void Test();
@@ -23,7 +24,6 @@ __attribute__((section(".init.data"))) pte_t *pte_0 = (pgd_t*)0x2000;
 __attribute__((section(".init.data"))) pte_t *pte_1 = (pgd_t*)0x3000;
 
 __attribute__((section(".init.data"))) int i;
-
 
 __attribute__((section(".init.text")))void kern_entry()
 {
@@ -70,7 +70,8 @@ void kern_init()
     init_debug();
     show_pmm_map();
     init_pmm();
-    init_vmm(); //setup kernel pgtable                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                   
+    init_vmm(); //setup kernel pgtable    
+    init_slab();                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                               
     /*Tests*/
     Test();
     while(1);
@@ -81,9 +82,11 @@ static void Test()
     //console_write_color("Hello OS\n",rc_green,rc_black);
     //KStringTest();
     //KStdioTest();
-    BuddyTest();
-    VMMTest1();
+    //BuddyTest();
+    //VMMTest1();
+    KMallocTest();
+    //ktest_list();
     //init_timer(100);
     //asm volatile("sti");
-    KDebugTest();
+    //KDebugTest();
 }

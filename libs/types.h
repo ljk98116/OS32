@@ -5,6 +5,7 @@ typedef unsigned int uint;
 typedef unsigned char uchar;
 typedef unsigned short ushort;
 
-#define NULL 0
+#define NULL (void *)0
+#define IsDigit(x) (x) >='0' && (x) <='9'
 
 #endif

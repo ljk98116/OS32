@@ -1,6 +1,8 @@
 #include "../../libs/vmm.h"
 #include "../../libs/mmu.h"
+#include "../../libs/buddy.h"
 #include "../../libs/kstdio.h"
+#include "../../libs/kstring.h"
 
 uint LoadCr3();
 __attribute__((aligned(PGSIZE))) pgd_t *pgd_kern;//1024 items
@@ -94,3 +96,62 @@ uint LoadCr3()
     cr3 = PTE_ADDR(cr3);
     return cr3;
 };
+
+void map(pgd_t *_pgd,uint flags,uint p_addr,uint v_addr)
+{
+    uint pgd_idx = PGD_IDX(v_addr);
+    uint pte_idx = PTE_IDX(v_addr);
+    pte_t *pte = (pte_t *)(_pgd[pgd_idx] & PAGE_MASK);
+    if (pte == NULL) {
+        pte = (pte_t *)(alloc_buddy(4)->start_addr);
+        _pgd[pgd_idx] = (uint)pte | PTE_P | PTE_W;
+
+        pte = (pte_t *)((uint)pte + PAGE_OFFSET);
+        memset(pte,0,PGSIZE);
+    } 
+    else 
+    {
+        pte = (pte_t *)((uint)pte + PAGE_OFFSET);
+    }
+    pte[pte_idx] = (p_addr & PAGE_MASK) | flags;
+    //fresh pgtable
+    asm volatile ("invlpg (%0)" : : "a" (v_addr));    
+}
+
+void unmap(pgd_t *_pgd,uint v_addr)
+{
+    uint pgd_idx = PGD_IDX(v_addr);
+    uint pte_idx = PTE_IDX(v_addr);
+
+    pte_t *pte = (pte_t *)(_pgd[pgd_idx] & PAGE_MASK);
+
+    if (!pte) {
+        return;
+    }
+
+    pte = (pte_t *)((uint)pte + PAGE_OFFSET);
+
+    pte[pte_idx] = 0;
+
+    asm volatile ("invlpg (%0)" : : "a" (v_addr));    
+}
+
+uint getmapping(pgd_t *_pgd, uint v_addr, uint *p_addr)
+{
+    uint pgd_idx = PGD_IDX(v_addr);
+    uint pte_idx = PTE_IDX(v_addr);
+
+    pte_t *pte = (pte_t *)(_pgd[pgd_idx] & PAGE_MASK);
+    if (!pte) {
+          return 0;
+    }
+    
+    pte = (pte_t *)((uint)pte + PAGE_OFFSET);
+
+    if (pte[pte_idx] != 0 && p_addr) {
+         *p_addr = pte[pte_idx] & PAGE_MASK;
+        return 1;
+    }
+
+    return 0;    
+}

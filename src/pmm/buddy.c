@@ -1,4 +1,4 @@
-#include "../../libs/pmm.h"
+#include "../../libs/buddy.h"
 #include "../../libs/kstdio.h"
 #include "../../libs/debug.h"
 
@@ -9,7 +9,7 @@ phy_page_t phy_pages[MAX_PG_NUM];
 
 int phy_page_num=0;
 
-static int log2(int x)
+int log2(int x)
 {
     int v = 1;
     int res = 0;
@@ -21,7 +21,7 @@ static int log2(int x)
     return res;
 }
 
-static int pow2(int x)
+int pow2(int x)
 {
     int res = 1;
     for(int i=0;i<x;i++)
@@ -44,13 +44,14 @@ static void init_pages()
         // 如果是可用内存 ( 按照协议，1 表示可用内存，其它数字指保留区域 )
         if (map_entry->type == 1 && map_entry->base_addr_low == 0x100000) {
             uint page_addr = map_entry->base_addr_low + (uint)(kern_end - kern_start);
+            if((page_addr & 0xfff) != 0) page_addr = ((page_addr >> 12) << 12) + PGSIZE;
             uint length = map_entry->base_addr_low + map_entry->length_low;
             while (page_addr < length && page_addr <= MAXSIZE) {
+                //printk("0x%x\n",page_addr);
                 phy_pages[phy_page_num].ref_num = 0;
                 phy_pages[phy_page_num].flags = 0;
                 phy_pages[phy_page_num].start_addr = page_addr;
                 phy_pages[phy_page_num].next = phy_pages[phy_page_num].prev = NULL;
-                phy_pages[phy_page_num].active = 0;
                 phy_page_num++;
                 page_addr += PGSIZE;
             }
@@ -63,7 +64,7 @@ void init_buddy()
 {
     //get all phy_pages and total number of phy_pages
     init_pages();
-    printk("Physic Page Sum:%d\n",phy_page_num);
+    //printk("Physic Page Sum:%d\n",phy_page_num);
     //init buddy_table
     for(int i=0;i<17;i++)
     {
@@ -99,12 +100,14 @@ void init_buddy()
         buddy_table[idx].blk_num += 1;
 
         start_pg_id += pg_num;
+        /*
         printk("start addr:0x%x,idx:%d,blk_num:%d,page_num:%d\n",
             buddy_table[idx].page_blk_list->start_addr,
             idx,
             buddy_table[idx].blk_num,
             pg_num
         );
+        */
         sum -= pow2(idx);
         idx = log2(sum);
         cnt += 1;
@@ -120,18 +123,6 @@ static phy_page_t *set_page_attr(phy_page_t *pg_list,uint flags,int free)
         p->flags = flags;
     }
     return pg_list;
-}
-
-int count_pages(phy_page_t *pg_list)
-{
-    int res = 0;
-    phy_page_t *p = pg_list;
-    while(p != NULL)
-    {
-        p = p->next;
-        res++;
-    }
-    return res;
 }
 
 //split larger block to 2 blocks,return one of it

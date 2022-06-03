@@ -1,5 +1,6 @@
 #include "../../libs/pmm.h"
 #include "../../libs/kstdio.h"
+#include "../../libs/slab.h"
 
 void show_pmm_map()
 {
@@ -16,6 +17,18 @@ void show_pmm_map()
             (uint)mmap->length_high, (uint)mmap->length_low,
             (uint)mmap->type);
     }
+}
+
+int count_pages(phy_page_t *pg_list)
+{
+    int res = 0;
+    phy_page_t *p = pg_list;
+    while(p != NULL)
+    {
+        p = p->next;
+        res++;
+    }
+    return res;
 }
 
 void init_pmm()

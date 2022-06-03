@@ -6,4 +6,7 @@ void KStdioTest();
 void KDebugTest();
 void BuddyTest();
 void VMMTest1();
+void ktest_list();
+void KMallocTest();
+
 #endif
