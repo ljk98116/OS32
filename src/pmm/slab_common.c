@@ -57,7 +57,7 @@ static void create_boot_cache(kmem_cache_t *cache, const char *name, uint size,u
     cache->node.full_slabs = NULL;
 
     //one page is enough to alloc
-    cache->order = 0;
+    cache->order = log2(pg_num);
     cache->ref_cnt = 0;
     cache->prev = cache->next = NULL;
 
