@@ -84,9 +84,10 @@ static void Test()
     //KStdioTest();
     //BuddyTest();
     //VMMTest1();
+    init_timer(100);
+    ide_init();
+    //asm volatile("sti");
     KMallocTest();
     //ktest_list();
-    //init_timer(100);
-    //asm volatile("sti");
     //KDebugTest();
 }

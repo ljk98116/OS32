@@ -1,6 +1,7 @@
 #include "../../libs/slab.h"
 #include "../../libs/debug.h"
 #include "../../libs/ktest.h"
+#include "../../libs/drivers.h"
 
 void KMallocTest()
 {
@@ -31,5 +32,8 @@ void KMallocTest()
     t3->x2 = '*';
     printk("0x%x,%d,%d,%c\n",(uint)t3,t3->x1,sizeof(*t3),t3->x2);
     printk("HeapTop:0x%x\n",heap_top);
+    ide_write_secs(1,(pgd_kern[PGD_IDX(heap_top - PGSIZE)] >> 24) * 8,heap_top - PGSIZE,8);
+    ide_read_secs(1,(pgd_kern[PGD_IDX(heap_top - PGSIZE)] >> 24) * 8,heap_top - PGSIZE,8);
+    printk("0x%x,%d,%d,%c\n",(uint)t3,t3->x1,sizeof(*t3),t3->x2);
     printk("*** KMallocTest End ***\n");
 }

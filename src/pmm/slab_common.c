@@ -111,6 +111,7 @@ static void *GetObj(slab_t *slab,uint obj_size)
     void *ret = slab->obj + obj_size * obj_id;
     //used obj
     slab->active++;
+    slab->ref_num++;
     return ret;
 }
 
@@ -120,6 +121,7 @@ static int FreeObj(uint obj_addr,slab_t *slab,uint obj_size)
     int obj_id = (obj_addr - slab->obj) / obj_size;
     if(obj_id < 0 || obj_id >= slab->obj_num) return 0;
     slab->active--;
+    slab->ref_num--;
     //config the id
     ((ushort *)(slab->free_list))[slab->active] = obj_id; 
     return 1;
@@ -128,6 +130,7 @@ static int FreeObj(uint obj_addr,slab_t *slab,uint obj_size)
 //use cache to create a kmem_cache instant dynamically,no initialize
 static void *init_kmem_cache_alloc(kmem_cache_t * cache)
 {
+    cache->ref_cnt++;
     //1.check partial list,if null get slab from free list or get from buddy
     if(cache->node.partial_slabs == NULL)
     {
@@ -381,6 +384,7 @@ static void move_slab_to_partial(slab_t *slabp,kmem_cache_t *cache)
 //find obj in kmem_cache
 static int _free_obj_kmem_cache(uint obj_addr,kmem_cache_t *cache)
 {
+    cache->ref_cnt--;
     //(1) check full_slabs
     uint obj_size = cache->size;
     if(cache->node.full_slabs != NULL)

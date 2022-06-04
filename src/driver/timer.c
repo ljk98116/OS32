@@ -4,7 +4,7 @@
 void timer_callback(pt_regs *regs)
 {
     static uint tick = 0;
-    printk_color(rc_red, rc_black, "Tick: %d\n", tick++);
+    //printk_color(rc_red, rc_black, "Tick: %d\n", tick++);
 }
 
 void init_timer(uint freq)
@@ -18,8 +18,8 @@ void init_timer(uint freq)
     outb(0x43, 0x36);
 
     uchar low = (uchar)(divisor & 0xFF);
-    uchar hign = (uchar)((divisor >> 8) & 0xFF);
+    uchar high = (uchar)((divisor >> 8) & 0xFF);
     
     outb(0x40, low);
-    outb(0x40, hign);
+    outb(0x40, high);
 }

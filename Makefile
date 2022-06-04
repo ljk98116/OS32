@@ -63,8 +63,8 @@ clean:
 
 .PHONY:qemu
 qemu:
-	qemu-system-i386 -hda OS.img
+	qemu-system-i386 -drive file=swapfile.img,index=1,media=disk,format=raw -drive file=OS.img,index=0,media=disk,format=raw
 
 .PHONY:qemu-gdb
 qemu-gdb:
-	qemu-system-i386 -hda OS.img -S -gdb tcp::1234
+	qemu-system-i386 -hda OS.img -S -hdb swapfile.img -gdb tcp::1234
