@@ -17,6 +17,7 @@ stop:
 
 .section .init.data
 # stack starts from here
+.globl stack
 .comm stack,32768
 
 .globl mboot_ptr_tmp

@@ -1,6 +1,9 @@
 #include "../../libs/buddy.h"
 #include "../../libs/kstdio.h"
 #include "../../libs/debug.h"
+#include "../../libs/swap.h"
+
+extern int swap_flag;
 
 //buddy_table
 buddy_item_t buddy_table[17];
@@ -31,6 +34,21 @@ int pow2(int x)
     return res;
 }
 
+//check if the pageblock can be freed
+static int check_free_pages(phy_page_t *pages)
+{
+    phy_page_t *p = pages;
+    while(p != NULL)
+    {
+        if(p->ref_num > 0)
+        {
+            return 0;
+        }
+        p = p->next;
+    }
+    return 1;
+}
+
 //build phy_pages structs
 static void init_pages()
 {
@@ -52,6 +70,7 @@ static void init_pages()
                 phy_pages[phy_page_num].flags = 0;
                 phy_pages[phy_page_num].start_addr = page_addr;
                 phy_pages[phy_page_num].next = phy_pages[phy_page_num].prev = NULL;
+                phy_pages[phy_page_num].va = 0;
                 phy_page_num++;
                 page_addr += PGSIZE;
             }
@@ -187,7 +206,7 @@ static phy_page_t *SplitBlock(int idx)
 }
 
 //alloc pg_blk
-phy_page_t *alloc_buddy(uint memsize)
+static phy_page_t *alloc_buddy(uint memsize,int* flag)
 {
     phy_page_t *blk;
     //size to alloc,4KB is one Page
@@ -249,7 +268,46 @@ phy_page_t *alloc_buddy(uint memsize)
         i += 1;
     } while (i < 17);
 
+    if(i == 17)
+    {
+        *flag = 0;
+        return NULL;
+    }
+    *flag = 1;
+    phy_page_t *pp = blk;
+    while(pp != NULL)
+    {
+        pp->flags |= PHY_BUSY;
+        pp = pp->next;
+    }
     return blk;
+}
+
+phy_page_t *alloc_pages(int n)
+{
+    #if 1
+    while(1)
+    {
+        int flag = 0;
+        phy_page_t *pages = alloc_buddy(n << 2,&flag);
+        if(flag == 1)
+        {
+            return pages;
+        }
+        flag = swap_out(check_mm_struct,1);
+        if(flag == 1)
+        {
+            panic("swap out done\n");
+        }
+        else
+        {
+            panic("swap out failed\n");
+        }
+    }
+    #else
+        int flag;
+        return alloc_buddy(n << 2,&flag);
+    #endif
 }
 
 //cut buddy blk from buddy_table[idx]
@@ -347,6 +405,17 @@ static phy_page_t *BlendBlk(phy_page_t *buddy_blk, phy_page_t *blk,int idx)
 //free pg_blk
 void free_buddy(phy_page_t *pg_blk)
 {
+    if(check_free_pages(pg_blk) == 0)
+    {
+        printk("free buddy failed\n");
+        return;
+    }
+    phy_page_t *pp = pg_blk;
+    while(pp != NULL)
+    {
+        pp->flags = PHY_FREE;
+        pp = pp->next;
+    }
     int pg_num = count_pages(pg_blk);
     int idx = log2(pg_num);
     //buddy_table[idx] is NULL,insert and exit
@@ -387,4 +456,16 @@ void free_buddy(phy_page_t *pg_blk)
         }
         buddy_table[tmp].blk_num++;
     }
+}
+
+int FindPageIndex(uint paddr)
+{
+    for(int i=0;i<MAX_PG_NUM;i++)
+    {
+        if(phy_pages[i].start_addr == paddr)
+        {
+            return i;
+        }
+    }
+    return -1;
 }

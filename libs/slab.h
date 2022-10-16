@@ -3,7 +3,6 @@
 
 #include "pmm.h"
 #include "vmm.h"
-#include "list.h"
 
 #define HEAP_START 0xE0000000
 

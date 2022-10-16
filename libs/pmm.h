@@ -15,6 +15,8 @@ typedef struct Page
     uint ref_num;
     uint flags;
     uint start_addr;
+    //when mapped,va has value
+    uint va;
     struct Page *next,*prev;
 }phy_page_t;
 

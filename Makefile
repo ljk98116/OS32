@@ -13,7 +13,8 @@ C_FILES = src/init\
 		src/segmm\
 		src/driver\
 		src/pmm\
-		src/vmm
+		src/vmm\
+		src/fs
 
 S_FILES = src/bootloader\
 		src/segmm\
@@ -63,7 +64,9 @@ clean:
 
 .PHONY:qemu
 qemu:
-	qemu-system-i386 -drive file=swapfile.img,index=1,media=disk,format=raw -drive file=OS.img,index=0,media=disk,format=raw
+	qemu-system-i386 \
+	-drive file=swapfile,index=1,media=disk,format=raw \
+	-drive file=OS.img,index=0,media=disk,format=raw
 
 .PHONY:qemu-gdb
 qemu-gdb:

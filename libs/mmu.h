@@ -91,6 +91,11 @@ struct segdesc {
 #define PGROUNDUP(sz)  (((sz)+PGSIZE-1) & ~(PGSIZE-1))
 #define PGROUNDDOWN(a) (((a)) & ~(PGSIZE-1))
 
+//phy page flags
+#define PHY_BUSY 0x1
+#define PHY_FREE 0x0
+#define PHY_SWAPPABLE 0x2
+
 // Page table/directory entry flags.
 #define PTE_P           0x001   // Present
 #define PTE_W           0x002   // Writeable

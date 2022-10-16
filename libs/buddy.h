@@ -13,9 +13,9 @@ typedef struct buddy_item
 void init_buddy();
 
 //memsize / KB
-phy_page_t *alloc_buddy(uint memsize);
+phy_page_t *alloc_pages(int n);
 void free_buddy(phy_page_t *pg_blk);
-
+int FindPageIndex(uint paddr);
 int log2(int x);
 int pow2(int x);
 

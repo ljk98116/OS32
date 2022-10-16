@@ -4,7 +4,7 @@
 void BuddyTest()
 {
     printk("*** BuddyTest Start ***\n");
-    phy_page_t *blk1 = alloc_buddy(7);
+    phy_page_t *blk1 = alloc_pages(7);
     
     if(blk1 == NULL) printk("Failed\n");
     else
@@ -14,7 +14,7 @@ void BuddyTest()
         );
     }
     
-    phy_page_t *blk2 = alloc_buddy(15);
+    phy_page_t *blk2 = alloc_pages(15);
     if(blk2 == NULL) printk("Failed\n");
     else
     {
@@ -25,7 +25,7 @@ void BuddyTest()
     free_buddy(blk1);
     free_buddy(blk2);
     
-    phy_page_t *blk3 = alloc_buddy(33);
+    phy_page_t *blk3 = alloc_pages(33);
     if(blk3 == NULL) printk("Failed\n");
     else{
         printk("blk3 alloced : start addr:0x%x,page_cnt:%d\n",

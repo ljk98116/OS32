@@ -6,7 +6,7 @@
 
 #define assert(x,info)\
     do{\
-        if(!x) panic(info);\
+        if(!(x)) panic(info);\
     }while(0);
 
 void init_debug();

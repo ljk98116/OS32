@@ -1,12 +1,12 @@
-#ifndef TEST_H
-#define TEST_H
+#ifndef KTEST_H
+#define KTEST_H
 
 void KStringTest();
 void KStdioTest();
 void KDebugTest();
 void BuddyTest();
 void VMMTest1();
-void ktest_list();
 void KMallocTest();
+void kswap_test();
 
 #endif
