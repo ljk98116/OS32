@@ -1102,6 +1102,372 @@
                     "filename": "tools/kernel.ld"
                 }
             ]
+        },
+        {
+            "version": "0.1.7",
+            "counttime": "2022-11-18 15:42:57",
+            "filesum": 59,
+            "codesum": 3426,
+            "commentsum": 589,
+            "blanksum": 568,
+            "filelist": [
+                {
+                    "blank": 5,
+                    "code": 15,
+                    "comment": 2,
+                    "filename": "libs/buddy.h"
+                },
+                {
+                    "blank": 7,
+                    "code": 26,
+                    "comment": 5,
+                    "filename": "libs/console.h"
+                },
+                {
+                    "blank": 6,
+                    "code": 12,
+                    "comment": 0,
+                    "filename": "libs/debug.h"
+                },
+                {
+                    "blank": 4,
+                    "code": 5,
+                    "comment": 11,
+                    "filename": "libs/drivers.h"
+                },
+                {
+                    "blank": 13,
+                    "code": 66,
+                    "comment": 9,
+                    "filename": "libs/elf.h"
+                },
+                {
+                    "blank": 4,
+                    "code": 11,
+                    "comment": 0,
+                    "filename": "libs/gdt.h"
+                },
+                {
+                    "blank": 3,
+                    "code": 7,
+                    "comment": 0,
+                    "filename": "libs/kstdarg.h"
+                },
+                {
+                    "blank": 4,
+                    "code": 6,
+                    "comment": 0,
+                    "filename": "libs/kstdio.h"
+                },
+                {
+                    "blank": 8,
+                    "code": 10,
+                    "comment": 0,
+                    "filename": "libs/kstring.h"
+                },
+                {
+                    "blank": 2,
+                    "code": 10,
+                    "comment": 0,
+                    "filename": "libs/ktest.h"
+                },
+                {
+                    "blank": 27,
+                    "code": 133,
+                    "comment": 91,
+                    "filename": "libs/mmu.h"
+                },
+                {
+                    "blank": 12,
+                    "code": 62,
+                    "comment": 23,
+                    "filename": "libs/multiboot.h"
+                },
+                {
+                    "blank": 10,
+                    "code": 21,
+                    "comment": 4,
+                    "filename": "libs/pmm.h"
+                },
+                {
+                    "blank": 4,
+                    "code": 8,
+                    "comment": 4,
+                    "filename": "libs/sched.h"
+                },
+                {
+                    "blank": 12,
+                    "code": 44,
+                    "comment": 17,
+                    "filename": "libs/slab.h"
+                },
+                {
+                    "blank": 3,
+                    "code": 8,
+                    "comment": 0,
+                    "filename": "libs/slab_tool.h"
+                },
+                {
+                    "blank": 6,
+                    "code": 21,
+                    "comment": 1,
+                    "filename": "libs/swap.h"
+                },
+                {
+                    "blank": 5,
+                    "code": 10,
+                    "comment": 0,
+                    "filename": "libs/swapfs.h"
+                },
+                {
+                    "blank": 12,
+                    "code": 44,
+                    "comment": 8,
+                    "filename": "libs/thread.h"
+                },
+                {
+                    "blank": 15,
+                    "code": 81,
+                    "comment": 31,
+                    "filename": "libs/trap.h"
+                },
+                {
+                    "blank": 8,
+                    "code": 14,
+                    "comment": 6,
+                    "filename": "libs/types.h"
+                },
+                {
+                    "blank": 15,
+                    "code": 39,
+                    "comment": 6,
+                    "filename": "libs/vmm.h"
+                },
+                {
+                    "blank": 27,
+                    "code": 106,
+                    "comment": 1,
+                    "filename": "libs/x86.h"
+                },
+                {
+                    "blank": 16,
+                    "code": 60,
+                    "comment": 0,
+                    "filename": "Makefile"
+                },
+                {
+                    "filename": "OS.img",
+                    "isbinaryfile": true,
+                    "blank": 0,
+                    "code": 0,
+                    "comment": 0
+                },
+                {
+                    "blank": 0,
+                    "code": 1,
+                    "comment": 0,
+                    "filename": "README.md"
+                },
+                {
+                    "blank": 7,
+                    "code": 20,
+                    "comment": 0,
+                    "filename": "src/bootloader/boot.S"
+                },
+                {
+                    "blank": 2,
+                    "code": 8,
+                    "comment": 1,
+                    "filename": "src/bootloader/multiboot.c"
+                },
+                {
+                    "blank": 17,
+                    "code": 91,
+                    "comment": 14,
+                    "filename": "src/console/console.c"
+                },
+                {
+                    "blank": 10,
+                    "code": 37,
+                    "comment": 1,
+                    "filename": "src/debug/debug.c"
+                },
+                {
+                    "blank": 5,
+                    "code": 35,
+                    "comment": 1,
+                    "filename": "src/debug/elf.c"
+                },
+                {
+                    "blank": 0,
+                    "code": 0,
+                    "comment": 98,
+                    "filename": "src/driver/ide.c"
+                },
+                {
+                    "blank": 6,
+                    "code": 16,
+                    "comment": 3,
+                    "filename": "src/driver/timer.c"
+                },
+                {
+                    "blank": 5,
+                    "code": 18,
+                    "comment": 2,
+                    "filename": "src/fs/tmpide.c"
+                },
+                {
+                    "blank": 18,
+                    "code": 68,
+                    "comment": 18,
+                    "filename": "src/init/kern_init.c"
+                },
+                {
+                    "blank": 20,
+                    "code": 175,
+                    "comment": 1,
+                    "filename": "src/libs/kstdio.c"
+                },
+                {
+                    "blank": 8,
+                    "code": 67,
+                    "comment": 6,
+                    "filename": "src/libs/kstring.c"
+                },
+                {
+                    "blank": 24,
+                    "code": 394,
+                    "comment": 53,
+                    "filename": "src/pmm/buddy.c"
+                },
+                {
+                    "blank": 5,
+                    "code": 32,
+                    "comment": 0,
+                    "filename": "src/pmm/pmm.c"
+                },
+                {
+                    "blank": 33,
+                    "code": 361,
+                    "comment": 72,
+                    "filename": "src/pmm/slab.c"
+                },
+                {
+                    "blank": 6,
+                    "code": 47,
+                    "comment": 0,
+                    "filename": "src/pmm/slab_tool.c"
+                },
+                {
+                    "blank": 5,
+                    "code": 24,
+                    "comment": 1,
+                    "filename": "src/sched/sched.c"
+                },
+                {
+                    "blank": 0,
+                    "code": 21,
+                    "comment": 6,
+                    "filename": "src/sched/switch_to.S"
+                },
+                {
+                    "blank": 5,
+                    "code": 16,
+                    "comment": 5,
+                    "filename": "src/segmm/gdt.c"
+                },
+                {
+                    "blank": 2,
+                    "code": 13,
+                    "comment": 0,
+                    "filename": "src/segmm/gdt_flush.S"
+                },
+                {
+                    "blank": 15,
+                    "code": 98,
+                    "comment": 0,
+                    "filename": "src/segmm/idt.c"
+                },
+                {
+                    "blank": 57,
+                    "code": 280,
+                    "comment": 0,
+                    "filename": "src/segmm/intr.S"
+                },
+                {
+                    "blank": 1,
+                    "code": 7,
+                    "comment": 0,
+                    "filename": "src/test/kdebug_test.c"
+                },
+                {
+                    "blank": 1,
+                    "code": 35,
+                    "comment": 1,
+                    "filename": "src/test/kmalloc_test.c"
+                },
+                {
+                    "blank": 1,
+                    "code": 14,
+                    "comment": 0,
+                    "filename": "src/test/kstdio_test.c"
+                },
+                {
+                    "blank": 8,
+                    "code": 54,
+                    "comment": 0,
+                    "filename": "src/test/kstring_test.c"
+                },
+                {
+                    "blank": 4,
+                    "code": 29,
+                    "comment": 0,
+                    "filename": "src/test/kswap_test.c"
+                },
+                {
+                    "blank": 5,
+                    "code": 33,
+                    "comment": 0,
+                    "filename": "src/test/pmm_test.c"
+                },
+                {
+                    "blank": 1,
+                    "code": 13,
+                    "comment": 1,
+                    "filename": "src/test/vmm_test.c"
+                },
+                {
+                    "blank": 8,
+                    "code": 40,
+                    "comment": 17,
+                    "filename": "src/thread/thread.c"
+                },
+                {
+                    "blank": 14,
+                    "code": 142,
+                    "comment": 16,
+                    "filename": "src/vmm/swapmm.c"
+                },
+                {
+                    "blank": 41,
+                    "code": 369,
+                    "comment": 53,
+                    "filename": "src/vmm/vmm.c"
+                },
+                {
+                    "filename": "swapfile",
+                    "isbinaryfile": true,
+                    "blank": 0,
+                    "code": 0,
+                    "comment": 0
+                },
+                {
+                    "blank": 6,
+                    "code": 49,
+                    "comment": 0,
+                    "filename": "tools/kernel.ld"
+                }
+            ]
         }
     ]
 }

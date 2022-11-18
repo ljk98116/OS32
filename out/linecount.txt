@@ -207,3 +207,74 @@ src/vmm/vmm.c, code is 343, comment is 37, blank is 41.
 swapfile, it is a binary file.
 tools/kernel.ld, code is 49, comment is 0, blank is 6.
 ===============================================================================
+===============================================================================
+EXTENSION NAME : linecount
+EXTENSION VERSION : 0.1.7
+-------------------------------------------------------------------------------
+count time : 2022-11-18 15:42:57
+count workspace : /home/ljk98/OS32
+total files : 59
+total code lines : 3426
+total comment lines : 589
+total blank lines : 568
+
+libs/buddy.h, code is 15, comment is 2, blank is 5.
+libs/console.h, code is 26, comment is 5, blank is 7.
+libs/debug.h, code is 12, comment is 0, blank is 6.
+libs/drivers.h, code is 5, comment is 11, blank is 4.
+libs/elf.h, code is 66, comment is 9, blank is 13.
+libs/gdt.h, code is 11, comment is 0, blank is 4.
+libs/kstdarg.h, code is 7, comment is 0, blank is 3.
+libs/kstdio.h, code is 6, comment is 0, blank is 4.
+libs/kstring.h, code is 10, comment is 0, blank is 8.
+libs/ktest.h, code is 10, comment is 0, blank is 2.
+libs/mmu.h, code is 133, comment is 91, blank is 27.
+libs/multiboot.h, code is 62, comment is 23, blank is 12.
+libs/pmm.h, code is 21, comment is 4, blank is 10.
+libs/sched.h, code is 8, comment is 4, blank is 4.
+libs/slab.h, code is 44, comment is 17, blank is 12.
+libs/slab_tool.h, code is 8, comment is 0, blank is 3.
+libs/swap.h, code is 21, comment is 1, blank is 6.
+libs/swapfs.h, code is 10, comment is 0, blank is 5.
+libs/thread.h, code is 44, comment is 8, blank is 12.
+libs/trap.h, code is 81, comment is 31, blank is 15.
+libs/types.h, code is 14, comment is 6, blank is 8.
+libs/vmm.h, code is 39, comment is 6, blank is 15.
+libs/x86.h, code is 106, comment is 1, blank is 27.
+Makefile, code is 60, comment is 0, blank is 16.
+OS.img, it is a binary file.
+README.md, code is 1, comment is 0, blank is 0.
+src/bootloader/boot.S, code is 20, comment is 0, blank is 7.
+src/bootloader/multiboot.c, code is 8, comment is 1, blank is 2.
+src/console/console.c, code is 91, comment is 14, blank is 17.
+src/debug/debug.c, code is 37, comment is 1, blank is 10.
+src/debug/elf.c, code is 35, comment is 1, blank is 5.
+src/driver/ide.c, code is 0, comment is 98, blank is 0.
+src/driver/timer.c, code is 16, comment is 3, blank is 6.
+src/fs/tmpide.c, code is 18, comment is 2, blank is 5.
+src/init/kern_init.c, code is 68, comment is 18, blank is 18.
+src/libs/kstdio.c, code is 175, comment is 1, blank is 20.
+src/libs/kstring.c, code is 67, comment is 6, blank is 8.
+src/pmm/buddy.c, code is 394, comment is 53, blank is 24.
+src/pmm/pmm.c, code is 32, comment is 0, blank is 5.
+src/pmm/slab.c, code is 361, comment is 72, blank is 33.
+src/pmm/slab_tool.c, code is 47, comment is 0, blank is 6.
+src/sched/sched.c, code is 24, comment is 1, blank is 5.
+src/sched/switch_to.S, code is 21, comment is 6, blank is 0.
+src/segmm/gdt.c, code is 16, comment is 5, blank is 5.
+src/segmm/gdt_flush.S, code is 13, comment is 0, blank is 2.
+src/segmm/idt.c, code is 98, comment is 0, blank is 15.
+src/segmm/intr.S, code is 280, comment is 0, blank is 57.
+src/test/kdebug_test.c, code is 7, comment is 0, blank is 1.
+src/test/kmalloc_test.c, code is 35, comment is 1, blank is 1.
+src/test/kstdio_test.c, code is 14, comment is 0, blank is 1.
+src/test/kstring_test.c, code is 54, comment is 0, blank is 8.
+src/test/kswap_test.c, code is 29, comment is 0, blank is 4.
+src/test/pmm_test.c, code is 33, comment is 0, blank is 5.
+src/test/vmm_test.c, code is 13, comment is 1, blank is 1.
+src/thread/thread.c, code is 40, comment is 17, blank is 8.
+src/vmm/swapmm.c, code is 142, comment is 16, blank is 14.
+src/vmm/vmm.c, code is 369, comment is 53, blank is 41.
+swapfile, it is a binary file.
+tools/kernel.ld, code is 49, comment is 0, blank is 6.
+===============================================================================

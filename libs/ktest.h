@@ -8,5 +8,6 @@ void BuddyTest();
 void VMMTest1();
 void KMallocTest();
 void kswap_test();
+void kthread_test();
 
 #endif

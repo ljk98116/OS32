@@ -49,6 +49,9 @@ extern proc_struct_t *proc_list;
 //current running proc
 extern proc_struct_t *current;
 
+//内核执行流线程
+extern proc_struct_t *idle;
+
 //current pid
 extern pid_t now_pid;
 
@@ -60,5 +63,9 @@ proc_struct_t *alloc_proc();
 
 //kthread init
 uint kthread_create(int (*fn)(void *),void *arg);
+
+//链表操作
+void AddToTail(proc_struct_t*,proc_struct_t*);
+proc_struct_t *PopFromHead(proc_struct_t*);
 
 #endif

@@ -1,7 +1,7 @@
-#include "../../libs/thread.h"
 #include "../../libs/kstring.h"
 #include "../../libs/slab.h"
 #include "../../libs/kstdio.h"
+#include "../../libs/sched.h"
 
 //pid
 pid_t now_pid = 0;
@@ -33,6 +33,7 @@ static void kthread_ret()
     printk("Thread exited value is 0x%x\n",val);
     while(1);
 }
+
 uint kthread_create(int (*fn)(void *),void *args)
 {
     proc_struct_t *proc = alloc_proc();
@@ -60,6 +61,7 @@ uint kthread_create(int (*fn)(void *),void *args)
     proc->context.eflags = 0x200;
     //加入就绪线程列表
     proc->state = PROC_READY;
-    
+    //加入就绪列表
+    AddToTail(proc_ready_list,proc);
     return proc->pid;
 }
