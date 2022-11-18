@@ -158,7 +158,7 @@ int swap_out(mm_struct_t *mm, int n)
             *ptep &= ~PTE_P;
             //fresh pgtable
             asm volatile ("invlpg (%0)" : : "a" (va) : "memory");
-            printk("0x%x\n",*ptep);
+            //printk("0x%x\n",*ptep);
             if(page->ref_num > 0)
             {
                 page->ref_num--;

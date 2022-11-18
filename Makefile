@@ -14,10 +14,13 @@ C_FILES = src/init\
 		src/driver\
 		src/pmm\
 		src/vmm\
-		src/fs
+		src/fs\
+		src/thread\
+		src/sched\
 
 S_FILES = src/bootloader\
 		src/segmm\
+		src/sched\
 
 C_SOURCES = $(shell find $(C_FILES) -name "*.c")
 S_SOURCES = $(shell find $(S_FILES) -name "*.S")
@@ -32,8 +35,8 @@ dirs:
 	mkdir -p $(C_DIRS) $(S_DIRS)
 
 obj:dirs
-	$(foreach n,$(C_SOURCES),$(shell gcc $(C_FLAGS) $(n) -o obj/$(patsubst src/%.c,%.o,$(n))))
 	$(foreach n,$(S_SOURCES),$(shell gcc $(C_FLAGS) $(n) -o obj/$(patsubst src/%.S,%.o,$(n))))
+	$(foreach n,$(C_SOURCES),$(shell gcc $(C_FLAGS) $(n) -o obj/$(patsubst src/%.c,%.o,$(n))))
 
 kernel:obj
 	ld $(LD_FLAGS) $(C_OBJS) $(S_OBJS) -o $@

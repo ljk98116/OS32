@@ -29,7 +29,8 @@ typedef struct pt_regs_t {
     uint ecx;
     uint eax;
     uint int_no;    
-    uint err_code;      
+    uint err_code;     
+    //CPU automarically pushed 
     uint eip;
     uint cs;        
     uint eflags;
