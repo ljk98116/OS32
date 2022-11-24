@@ -2,6 +2,7 @@
 #include "../../libs/slab.h"
 #include "../../libs/kstdio.h"
 #include "../../libs/sched.h"
+#include "../../libs/debug.h"
 
 //pid
 pid_t now_pid = 0;
@@ -46,6 +47,7 @@ uint kthread_create(int (*fn)(void *),void *args)
     proc->mm = NULL;
     uint *stack_top = (uint *)((uint)proc + PGSIZE);
     //函数，返回值，参数压栈
+    //printk("0x%x,%c %c\n",(uint)args,((char*)args)[0],((char*)args)[1]);
     *(--stack_top) = (uint)args;
     *(--stack_top) = (uint)kthread_ret;
     *(--stack_top) = (uint)fn;
@@ -62,6 +64,46 @@ uint kthread_create(int (*fn)(void *),void *args)
     //加入就绪线程列表
     proc->state = PROC_READY;
     //加入就绪列表
-    AddToTail(proc_ready_list,proc);
+    //printk("next thread:0x%x\n",(uint)proc);
+    list_add_tail(&proc_ready_list->node,&proc->node);
     return proc->pid;
+}
+
+void thread_block(proc_state_t state)
+{
+    assert((state == PROC_WAITING 
+    || state == PROC_HANGING 
+    || state == PROC_BLOCKED), 
+    "next state is not block\n");
+
+    local_intr_save();
+    current->state = state;
+    schedule();
+    local_intr_restore();
+}
+
+void thread_unblock(proc_struct_t *proc)
+{
+    if(proc == NULL)
+    {
+        return;
+    }
+    local_intr_save();
+    {
+        assert((proc->state == PROC_WAITING 
+        || proc->state == PROC_HANGING 
+        || proc->state == PROC_BLOCKED), 
+        "already unblocked\n");
+        if(proc->state != PROC_READY)
+        {
+            if(list_find(&(proc_ready_list->node),&(proc->node)))
+            {
+                panic("thread unblock:blocked thread already in ready list");
+            }
+            //加入就绪队列头部，使其尽快被调度
+            list_add_head(&(proc_ready_list->node), &(proc->node));
+            proc->state = PROC_READY;
+        }
+    }
+    local_intr_restore();
 }

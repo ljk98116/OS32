@@ -17,6 +17,7 @@ C_FILES = src/init\
 		src/fs\
 		src/thread\
 		src/sched\
+		src/sync\
 
 S_FILES = src/bootloader\
 		src/segmm\
@@ -30,6 +31,18 @@ S_OBJS = $(patsubst src/%.S,obj/%.o,$(S_SOURCES))
 
 C_DIRS = $(patsubst src%,obj%,$(C_FILES))
 S_DIRS = $(patsubst src%,obj%,$(S_FILES))
+
+C_USRFILES = usr/
+S_USRFILES = usr/
+
+C_USRS = $(shell find $(C_USRFILES) -name "*.c")
+S_USRSOURCES = $(shell find $(S_USRFILES) -name "*.S")
+
+C_USROBJS = $(patsubst usr/%.c,obj/%.o,$(C_USRSOURCES))
+S_USROBJS = $(patsubst usr/%.S,obj/%.o,$(S_USRSOURCES))
+                                                                                                   
+C_USRDIRS = $(patsubst usr%,obj%,$(C_USRFILES))
+S_USRDIRS = $(patsubst usr%,obj%,$(S_USRFILES))
 
 dirs:
 	mkdir -p $(C_DIRS) $(S_DIRS)
@@ -73,4 +86,4 @@ qemu:
 
 .PHONY:qemu-gdb
 qemu-gdb:
-	qemu-system-i386 -hda OS.img -S -hdb swapfile.img -gdb tcp::1234
+	gdb -tui -x tools/gdbinit

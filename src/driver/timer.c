@@ -7,7 +7,7 @@ static uint tick = 0;
 void timer_callback(pt_regs *regs)
 {
     //执行调度
-    if(tick % 100 == 0)
+    if(tick % 1 == 0)
     {
         schedule();
     }

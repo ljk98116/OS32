@@ -1,5 +1,9 @@
 #include "../../libs/console.h"
 #include "../../libs/x86.h"
+#include "../../libs/sync.h"
+
+//控制台锁
+static lock_t console_lck;
 
 //Text Video Buffer starts here,size = (80,25)
 static ushort *text_video_mem = (ushort *)(0xB8000 + 0xC0000000);
@@ -7,6 +11,22 @@ static ushort *text_video_mem = (ushort *)(0xB8000 + 0xC0000000);
 //cursors,starts from (0,0)
 static uchar cursor_X = 0;
 static uchar cursor_Y = 0;
+
+void console_init()
+{
+    lock_init(&console_lck);
+    console_clear();
+}
+
+void console_require()
+{
+    req_lock(&console_lck);
+}
+
+void console_release()
+{
+    lock_release(&console_lck);
+}
 
 void move_cursor()
 {
@@ -103,16 +123,20 @@ void console_putc_color(char c, Color_t font_color, Color_t backcolor)
 
 void console_write(char *str)
 {
+    console_require();
     while (*str) {
         console_putc_color(*str++, rc_white, rc_black);
     }
+    console_release();
 }
 
 void console_write_color(char *str, Color_t font_color,Color_t back_color)
 {
+    console_require();
     while (*str) {
         console_putc_color(*str++, font_color, back_color);
     }
+    console_release();
 }
 
 

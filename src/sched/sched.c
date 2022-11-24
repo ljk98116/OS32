@@ -14,37 +14,11 @@ static void switch_thread(proc_struct_t *next)
         proc_struct_t *p = current;
         current->state = PROC_READY;
         current = next;
+        local_intr_save();
         switch_to(&(p->context),&(current->context));
+        local_intr_restore();
         current->state = PROC_RUNNING;
     }
-}
-
-void AddToTail(proc_struct_t *p1,proc_struct_t *p2)
-{
-    if(p1 == NULL || p2 == NULL)
-    {
-        return;
-    }
-    p1->prev->next = p2;
-    p2->prev = p1->prev;
-    p1->prev = p2;
-    p2->next = p1;
-}
-
-proc_struct_t *PopFromHead(proc_struct_t *p1)
-{
-    if(p1 == NULL || p1->next == NULL)
-    {
-        return NULL;
-    }
-    p1->next->prev = NULL;
-    proc_struct_t *res = p1->next;
-    if(p1->next->next != NULL)
-    {
-        p1->next->next->prev = p1;
-    }
-    p1->next = p1->next->next;
-    return res;
 }
 
 void thread_idle()
@@ -56,37 +30,37 @@ void thread_idle()
     //printk("current stack:0x%x\n",(uint)current);
     current->mm = NULL;
     current->state = PROC_RUNNING;
-
     idle = current;
 }
 
 void init_sched()
 {
     //初始化各个状态进程列表
-    proc_ready_list = (proc_struct_t*)kmalloc(sizeof(proc_struct_t*));
-    proc_ready_list->prev = proc_ready_list->next = proc_ready_list;
-
-    proc_block_list = (proc_struct_t*)kmalloc(sizeof(proc_struct_t*));
-    proc_block_list->prev = proc_block_list->next = proc_block_list;
-
-    proc_hanging_list = (proc_struct_t*)kmalloc(sizeof(proc_struct_t*));
-    proc_hanging_list->prev = proc_hanging_list->next = proc_hanging_list;
-
+    list_init(&proc_ready_list->node);
+    list_init(&proc_block_list->node);
+    list_init(&proc_hanging_list->node);
     //初始线程
     thread_idle();
 }
 
+//TO DO
 void schedule()
 {
-    if(proc_ready_list->next != NULL)
+    if(!list_empty(&proc_ready_list->node))
     {
         //从就绪队列获取下一个线程
-        proc_struct_t *next = PopFromHead(proc_ready_list);
+        list_t * head = list_front(&proc_ready_list->node);
+        proc_struct_t *next = elem2entry(proc_struct_t,node,head);
+        list_pop(&proc_ready_list->node);
         //当前加入就绪队列
-        current->state = PROC_READY;
-        AddToTail(proc_ready_list,current);
-        //调度下一进程
+        if(current->pid != 1)
+        {
+            current->state = PROC_READY;
+            list_add_tail(&proc_ready_list->node,&current->node);
+        }
+        //调度下一线程
         next->state = PROC_RUNNING;
+        //printk("next proc:0x%x\n",(uint)next);
         switch_thread(next);
     }
 }

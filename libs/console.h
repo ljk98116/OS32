@@ -23,6 +23,7 @@ typedef enum real_color {
     rc_white = 15
 } Color_t;
 
+void console_init();
 //flush screen
 void console_clear();
 
@@ -34,5 +35,11 @@ void console_write(char *str);
 
 //console display str with color
 void console_write_color(char *str, Color_t font_color, Color_t back_color);
+
+//获取控制台锁
+void console_require();
+
+//释放控制台锁
+void console_release();
 
 #endif

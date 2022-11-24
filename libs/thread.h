@@ -3,6 +3,7 @@
 
 #include "types.h"
 #include "vmm.h"
+#include "list.h"
 
 //进程pid
 typedef int pid_t;
@@ -15,6 +16,7 @@ typedef enum proc_state
     PROC_RUNNING,
     PROC_BLOCKED,
     PROC_HANGING,
+    PROC_WAITING,
     PROC_END
 }proc_state_t;
 
@@ -40,7 +42,7 @@ typedef struct proc_struct
     uint cr3;
     uint proc_flags;
     char proc_name[50];
-    struct proc_struct *next,*prev;
+    list_t node;
 }proc_struct_t;
 
 //interfaces
@@ -64,8 +66,10 @@ proc_struct_t *alloc_proc();
 //kthread init
 uint kthread_create(int (*fn)(void *),void *arg);
 
-//链表操作
-void AddToTail(proc_struct_t*,proc_struct_t*);
-proc_struct_t *PopFromHead(proc_struct_t*);
+//block current thread
+void thread_block(proc_state_t state);
+
+//unblock the thread
+void thread_unblock(proc_struct_t *proc);
 
 #endif

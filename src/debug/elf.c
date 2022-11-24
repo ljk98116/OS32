@@ -1,6 +1,7 @@
 #include "../../libs/elf.h"
 #include "../../libs/kstring.h"
 #include "../../libs/vmm.h"
+#include "../../libs/thread.h"
 
 elf_t elf_from_multiboot(MultiBoot_t *mb)
 {
@@ -38,4 +39,3 @@ const char *elf_lookup_symbol(uint addr, elf_t *elf)
 
     return NULL;
 }
-

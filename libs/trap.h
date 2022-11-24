@@ -103,5 +103,8 @@ extern void interrupt47();
 // 32 ~ 255 用户自定义异常
 extern void interrupt255();
 
+//汇编实现
+extern void local_intr_save();
+extern void local_intr_restore();
 
 #endif

@@ -334,4 +334,12 @@ interrupt_common_stub:
 
     iret
 
+.globl local_intr_save
+local_intr_save:
+    cli
+    ret
 
+.globl local_intr_restore
+local_intr_restore:
+    sti
+    ret

@@ -19,4 +19,6 @@ extern proc_struct_t *proc_block_list;
 //挂起列表
 extern proc_struct_t *proc_hanging_list;
 
+extern void switch_to(proc_context_t*,proc_context_t*);
+
 #endif
