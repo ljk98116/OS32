@@ -25,7 +25,8 @@ void set_proc_name(proc_struct_t *proc, char *name)
 //非vmap模式，为线程分配1个物理页空间即可
 proc_struct_t *alloc_proc()
 {
-    return (proc_struct_t *)kmalloc(PGSIZE);
+    proc_struct_t *ret = (proc_struct_t *)kmalloc(PGSIZE);
+    return ret;
 }
 
 static void kthread_ret()
@@ -35,11 +36,13 @@ static void kthread_ret()
     while(1);
 }
 
-uint kthread_create(int (*fn)(void *),void *args)
+uint kthread_create(int (*fn)(void *),void *args,char *name,uchar prio)
 {
     proc_struct_t *proc = alloc_proc();
     //对线程PCB清0
     memset(proc,0,sizeof(proc_struct_t));
+    //命名线程
+    set_proc_name(proc, name);
     //开始创建线程(此处应屏蔽中断)
     proc->state = PROC_CREATE;
     proc->kstack = current;
@@ -63,9 +66,11 @@ uint kthread_create(int (*fn)(void *),void *args)
     proc->context.eflags = 0x200;
     //加入就绪线程列表
     proc->state = PROC_READY;
+    proc->ticks = prio;
+    proc->prio = prio;
     //加入就绪列表
     //printk("next thread:0x%x\n",(uint)proc);
-    list_add_tail(&proc_ready_list->node,&proc->node);
+    list_add_tail(&(proc_ready_list->node),&(proc->node));
     return proc->pid;
 }
 

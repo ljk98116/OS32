@@ -13,19 +13,20 @@ void sema_up(sem_t *psema)
 {
     local_intr_save();
     {
-        assert(psema->value == 0,"befor P sema val must be zero");
-        if(list_empty(&(psema->waiters)) == 0)
+        assert(psema->value == 0,"before V sema val must be 0");
+        if(!list_empty(&(psema->waiters)))
         {
             //唤醒在信号量等待队列头部的线程
             list_t *node = list_front(&(psema->waiters));
             if(node != NULL)
             {
-                list_remove(node);
+                list_pop(&(psema->waiters));
                 proc_struct_t *proc = elem2entry(proc_struct_t, node, node);
                 thread_unblock(proc);
             }
         }
         psema->value++;
+        assert(psema->value == 1,"after V sema must be 1")
     }
     local_intr_restore();
 }
@@ -88,5 +89,6 @@ void lock_release(lock_t *lck)
     lck->holder = NULL;
     lck->holder_repeat_times = 0;
     //V 操作释放信号量
+    //printk("%d",lck->sem.value);
     sema_up(&(lck->sem));
 }

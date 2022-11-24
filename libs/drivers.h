@@ -2,10 +2,13 @@
 #define DRIVERS_H
 
 #include "trap.h"
+//下面加所有驱动的头文件
+#include "keyboard.h"
 
 //IRQ32 timer
 void init_timer(uint freq);
 
+void sleep(uint ticks);
 /*
 //ide operation
 #define KERNEL 0

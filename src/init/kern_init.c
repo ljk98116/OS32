@@ -11,8 +11,10 @@
 #include "../../libs/slab.h"
 #include "../../libs/thread.h"
 
-void kern_init();
+static void init_drivers();
 static void Test();
+void kern_init();
+
 int swap_flag = 0;
 #define STACK_SIZE 32768
 
@@ -70,15 +72,18 @@ void kern_init()
     init_slab();//setup slab to support kmalloc
     init_mm();//setup vma and swap manager        
     init_sched();//setup schedule system
-    init_timer(100);
-    asm volatile("sti");  
-    console_init();
-    show_pmm_map();                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                            
+    init_drivers();//setup drivers                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                        
     /*Tests*/
     Test();
     while(1);
 }
-
+static void init_drivers()
+{
+    init_timer(1000);//1000HZ,1ms
+    init_kbd();
+    asm volatile("sti");  
+    console_init();
+}
 static void Test()
 {
     //console_write_color("Hello OS\n",rc_green,rc_black);
@@ -91,7 +96,4 @@ static void Test()
     //KDebugTest();
     kthread_test();
     //kswap_test();
-    console_write_color("Hello OS\n",rc_green,rc_black);
-    printk("kern_start:0x%x\n",kern_start);
-    printk("kern_end:0x%x\n",kern_end);
 }

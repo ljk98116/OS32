@@ -22,16 +22,16 @@ void KMallocTest()
     printk("0x%x,%d,%d,%c\n",(uint)t1,t1->x1,sizeof(*t1),t1->x2);
     kfree(t1);
     printk("HeapTop:0x%x\n",heap_top);
-    struct Test *t2 = kmalloc(sizeof(struct Test));
+    struct Test *t2 = kmalloc(4096);
+    printk("0x%x,%d,%d,%c\n",(uint)t2,t2->x1,sizeof(*t2),t2->x2);
     t2->x1 = 90;
     t2->x2 = '&';
     printk("0x%x,%d,%d,%c\n",(uint)t2,t2->x1,sizeof(*t2),t2->x2);
     printk("HeapTop:0x%x\n",heap_top);
-    struct Test *t3 = kmalloc(sizeof(struct Test));
+    struct Test *t3 = kmalloc(4096);
     t3->x1 = 900;
     t3->x2 = '*';
     printk("0x%x,%d,%d,%c\n",(uint)t3,t3->x1,sizeof(*t3),t3->x2);
     printk("HeapTop:0x%x\n",heap_top);
-    printk("0x%x,%d,%d,%c\n",(uint)t3,t3->x1,sizeof(*t3),t3->x2);
     printk("*** KMallocTest End ***\n");
 }

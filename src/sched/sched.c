@@ -30,6 +30,9 @@ void thread_idle()
     //printk("current stack:0x%x\n",(uint)current);
     current->mm = NULL;
     current->state = PROC_RUNNING;
+    current->prio = 100;
+    current->ticks = 100;
+    set_proc_name(current, "IDLE");
     idle = current;
 }
 
@@ -46,21 +49,26 @@ void init_sched()
 //TO DO
 void schedule()
 {
-    if(!list_empty(&proc_ready_list->node))
+    if(current->ticks == 0)
     {
         //从就绪队列获取下一个线程
-        list_t * head = list_front(&proc_ready_list->node);
-        proc_struct_t *next = elem2entry(proc_struct_t,node,head);
-        list_pop(&proc_ready_list->node);
-        //当前加入就绪队列
-        if(current->pid != 1)
+        if(!list_empty(&(proc_ready_list->node)))
         {
+            list_t * head = list_front(&proc_ready_list->node);
+            proc_struct_t *next = elem2entry(proc_struct_t,node,head);
+            list_pop(&(proc_ready_list->node));
+            //当前线程加入就绪队列
             current->state = PROC_READY;
-            list_add_tail(&proc_ready_list->node,&current->node);
+            current->ticks = current->prio;
+            list_add_tail(&(proc_ready_list->node),&(current->node));
+            //调度下一线程
+            next->state = PROC_RUNNING;
+            printk("next proc:%s\n",next->proc_name);
+            switch_thread(next);
         }
-        //调度下一线程
-        next->state = PROC_RUNNING;
-        //printk("next proc:0x%x\n",(uint)next);
-        switch_thread(next);
+        else
+        {
+            current->ticks = current->prio;
+        }
     }
 }

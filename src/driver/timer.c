@@ -6,15 +6,19 @@ static uint tick = 0;
 
 void timer_callback(pt_regs *regs)
 {
+    current->ticks--;
     //执行调度
-    if(tick % 1 == 0)
-    {
-        schedule();
-    }
+    schedule();
     tick++;
     //printk_color(rc_red, rc_black, "Tick: %d\n", tick++);
 }
 
+void sleep(uint ticks)
+{
+    uint cc = tick;
+    uint endcc = tick + ticks;
+    while(tick < endcc);
+}
 void init_timer(uint freq)
 {
     register_interrupt_handler(32, timer_callback);

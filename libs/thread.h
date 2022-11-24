@@ -41,8 +41,10 @@ typedef struct proc_struct
     proc_context_t context;
     uint cr3;
     uint proc_flags;
-    char proc_name[50];
+    char proc_name[100];
     list_t node;
+    uchar ticks;
+    uchar prio;
 }proc_struct_t;
 
 //interfaces
@@ -57,14 +59,12 @@ extern proc_struct_t *idle;
 //current pid
 extern pid_t now_pid;
 
-//set proc name
-void set_proc_name(proc_struct_t *proc,char *name);
-
 //alloc a PCB
 proc_struct_t *alloc_proc();
+void set_proc_name(proc_struct_t *proc, char *name);
 
 //kthread init
-uint kthread_create(int (*fn)(void *),void *arg);
+uint kthread_create(int (*fn)(void *),void *arg, char* name,uchar prio);
 
 //block current thread
 void thread_block(proc_state_t state);
